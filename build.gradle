@@ -4,3 +4,17 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'main.Main'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.Main'
+    }
+}
+
+run {
+    standardInput = System.in
+}

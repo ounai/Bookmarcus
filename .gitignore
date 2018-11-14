@@ -1,3 +1,6 @@
 .gradle/
-builds/
+.settings/
+.vscode/
+build/
 
+.project
