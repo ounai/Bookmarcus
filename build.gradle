@@ -4,15 +4,27 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+
+plugins {
+  id "com.github.gmazzo.sqlite" version "0.2"
+}
+
 apply plugin: 'application'
 apply plugin: 'java'
+
+
 
 repositories {
     mavenCentral()
 }
 
+configurations {
+    driver
+}
+
 dependencies {
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
+    driver 'org.xerial:sqlite-jdbc:3.20.1'
 }
 
 mainClassName = 'main.Main'
@@ -25,4 +37,27 @@ jar {
 
 run {
     standardInput = System.in
+}
+
+URLClassLoader loader = GroovyObject.class.classLoader
+configurations.driver.each {File file -> loader.addURL(file.toURI().toURL())}
+
+task createDB {
+    ext.loadScript = { sql, file ->
+        println("Applying " + file)
+        String[] sqlcmds = file.text.split(";")
+        sqlcmds.collect{it.trim()}.findAll{!it.isEmpty() && !it.startsWith("--")}.each{
+            try {
+                sql.execute(it)
+            } catch(java.sql.SQLException e) {
+                System.err << "Invalid SQL statement: " + it
+                e.printStackTrace(System.err)
+                throw e
+            }
+        }
+    }
+
+    def sql = groovy.sql.Sql.newInstance('jdbc:sqlite:sql/db/Bookmarcus.db','','','org.sqlite.JDBC')
+    new File("sql/").eachFileMatch(~/.*\.sql/) {loadScript(sql, it)}
+    sql.close()
 }
