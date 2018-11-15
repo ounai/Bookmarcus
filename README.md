@@ -2,7 +2,7 @@
 Bookmarking App
 
 
-#Tietokanta
+# Tietokanta
 Tietokanta luodaan nyt build.gradlessa scriptillä. Luonti SQL löytyy sql/init.sql
 Jarit eivät oletuksena toimi koska jariin ei tule mukaan muita kansioita.
 Nämä määritellään sitten distZip komennon luotavaksi (tämä luo sovelluksesta levitysversion)
