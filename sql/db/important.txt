@@ -1,0 +1,4 @@
+This is a very fine solution.
+I wanted this folder to git.
+But git doesnt take empty folders.
+Enjoy.
