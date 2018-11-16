@@ -56,9 +56,15 @@ task createDB {
             }
         }
     }
-    mkdir "sql/db"
-    def sql = groovy.sql.Sql.newInstance('jdbc:sqlite:sql/db/Bookmarcus.db','','','org.sqlite.JDBC')
-    new File("$projectDir/sql/").eachFileMatch(~/.*init.sql/) {loadScript(sql, it)}
-    new File("$projectDir/sql/").eachFileMatch(~/.*\.sql/) {loadScript(sql, it)}
-    sql.close()
+    try {
+    mkdir "$projectDir/sql/db"
+        def sql = groovy.sql.Sql.newInstance('jdbc:sqlite:sql/db/Bookmarcus.db','','','org.sqlite.JDBC')
+        new File("$projectDir/sql/").eachFileMatch(~/.*init.sql/) {loadScript(sql, it)}
+        new File("$projectDir/sql/").eachFileMatch(~/.*\.sql/) {loadScript(sql, it)}
+        sql.close()
+    } catch(java.sql.SQLException e) {
+        System.err << "Invalid SQL statement: " + it
+        e.printStackTrace(System.err)
+        
+    }
 }
