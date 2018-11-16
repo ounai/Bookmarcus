@@ -41,6 +41,7 @@ URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file -> loader.addURL(file.toURI().toURL())}
 
 task createDB {
+
     ext.loadScript = { sql, file ->
         println("Applying " + file)
         String[] sqlcmds = file.text.split(";")
@@ -54,6 +55,7 @@ task createDB {
             }
         }
     }
+    mkdir "sql/db"
 
     def sql = groovy.sql.Sql.newInstance('jdbc:sqlite:sql/db/Bookmarcus.db','','','org.sqlite.JDBC')
     new File("sql/").eachFileMatch(~/.*\.sql/) {loadScript(sql, it)}
