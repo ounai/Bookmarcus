@@ -23,6 +23,7 @@ configurations {
 dependencies {
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
     driver 'org.xerial:sqlite-jdbc:3.20.1'
+    testCompile 'junit:junit:4.12'
 }
 
 mainClassName = 'main.Main'
