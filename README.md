@@ -9,3 +9,4 @@ Nämä määritellään sitten distZip komennon luotavaksi (tämä luo sovelluks
 
 Devaus versioon saat tietokannan käyttöön vain suorittamalla gradle build tai gradle run (eli luodaan suorituksen yhteydessä).
 
+Netbeansin kanssa oli ongelma kun netbeans suoritti buildin sql-komennot väärässä kansiossa (netbeansin oletuskansiossa). Nyt jos tietokannan luominen ei onnistu ei se kaada buildia, vaan tulee vain virheilmoitus. gradle run tai gradle build toimii yleisesti, mutta jos tietokanta ei ilmesty tarkasta konsolista onko virheilmoituksia (SQLException).
