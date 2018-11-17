@@ -20,11 +20,13 @@ import java.util.logging.Logger;
  * @author daniel
  */
 public class BookmarkIO implements DatabaseIO {
+
     private String dbPath;
-    
+
     public BookmarkIO() {
-        this.dbPath ="sql/db/Bookmarcus.db";
+        this.dbPath = "sql/db/Bookmarcus.db";
     }
+
     public BookmarkIO(String path) {
         this.dbPath = path;
     }
@@ -33,10 +35,10 @@ public class BookmarkIO implements DatabaseIO {
     public Bookmark find(int id) {
         Bookmark bookmark = null;
         String sql = "SELECT id, name, description FROM bookmark WHERE id = ?";
-        try(Connection conn = this.connect();
+        try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            
+
             ResultSet rs = pstmt.executeQuery();
             bookmark = new Bookmark(rs.getInt("id"), rs.getString("name"), rs.getString("description"));
         } catch (SQLException e) {
@@ -84,6 +86,25 @@ public class BookmarkIO implements DatabaseIO {
             System.out.println(e.getMessage());
         }
         return conn;
+    }
+
+    @Override
+    public boolean add(Bookmark bookmark) {
+        if (bookmark.getName() == null) {
+            return false;
+        }
+
+        String sql = "INSERT INTO bookmark (name, description) VALUES (?, ?)";
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, bookmark.getName());
+            pstmt.setString(2, bookmark.getDescription());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
     }
 
 }

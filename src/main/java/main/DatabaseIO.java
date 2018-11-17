@@ -16,4 +16,5 @@ public interface DatabaseIO {
     public ArrayList<Bookmark> getAll();
     public boolean delete(int id);
     public boolean delete(Bookmark bookmark);
+    public boolean add(Bookmark bookmark);
 }
