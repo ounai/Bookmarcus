@@ -5,12 +5,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        SelectApp app = new SelectApp();
-        app.selectAll();
+        BookmarkIO bio = new BookmarkIO();
+        ArrayList<Bookmark> bookmarks = bio.getAll();
+        for (Bookmark bm : bookmarks) {
+            System.out.println(bm);
+        }
+        System.out.println("Find id=1: ");
+        System.out.println(bio.find(1));
         
     }
 
