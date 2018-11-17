@@ -14,3 +14,11 @@ Netbeansin kanssa oli ongelma kun netbeans suoritti buildin sql-komennot väär�
 ## Testaus
 Loin tuonne ihan vain testiksi koodia Mainiin sekä Dummy-luokan. Kaiken voi poistaa, tarkoitus vain
 näyttää että tietokanta toimii ja testit toimii.
+
+## BookmarkIO
+Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina metodeina ovat
+    - Find(id) -- palauttaa Bookmark:in jos id:llä löytyy, muuten null
+    - getAll() -- palauttaa kaikki Bookmarkit ArrayListina
+    - add(Bookmark) -- lisää uuden Bookmarkin tietokantaan. Palauttaa true jos onnistui, muuten false
+    - delete(id) -- ei vielä implementoitu
+    - delete(Bookmark) -- ei vielä implementoitu
