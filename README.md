@@ -15,6 +15,8 @@ Netbeansin kanssa oli ongelma kun netbeans suoritti buildin sql-komennot väär�
 Loin tuonne ihan vain testiksi koodia Mainiin sekä Dummy-luokan. Kaiken voi poistaa, tarkoitus vain
 näyttää että tietokanta toimii ja testit toimii.
 
+BookmarkIO testeissä luodaan testitietokanta jokaisen testin alussa ja poistetaan se jokaisen testin lopussa. Kun teette luokkia jotka ovat riippuvaisia BookmarkIO:sta, käyttäkää riippuvuutuena rajapintaa DatabaseIO ja testeissä injektoikaa stubi, kuten laskareissa opimme.
+
 ## BookmarkIO
 Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina metodeina ovat: 
    - Find(id) palauttaa Bookmark:in jos id:llä löytyy, muuten null
