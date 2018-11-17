@@ -7,3 +7,4 @@ build/
 .classpath
 bin/
 .nb-gradle/
+nbproject/
