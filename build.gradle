@@ -10,8 +10,6 @@ apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'jacoco'
 
-
-
 repositories {
     mavenCentral()
 }
@@ -43,6 +41,13 @@ jar {
 
 run {
     standardInput = System.in
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
 
 URLClassLoader loader = GroovyObject.class.classLoader
