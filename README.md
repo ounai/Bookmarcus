@@ -1,6 +1,6 @@
 # Bookmarcus
 Bookmarking App
-
+  * [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
 
 ## Tietokanta
 Tietokanta luodaan nyt build.gradlessa scriptillä. Luonti SQL löytyy sql/init.sql
