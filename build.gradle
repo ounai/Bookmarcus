@@ -23,7 +23,14 @@ configurations {
 dependencies {
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
     driver 'org.xerial:sqlite-jdbc:3.20.1'
+    testCompile 'info.cukes:cucumber-java:1.2.5'
+    testCompile 'info.cukes:cucumber-junit:1.2.5'
     testCompile 'junit:junit:4.12'
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
 mainClassName = 'main.Main'
