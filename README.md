@@ -17,6 +17,8 @@ näyttää että tietokanta toimii ja testit toimii.
 
 BookmarkIO testeissä luodaan testitietokanta jokaisen testin alussa ja poistetaan se jokaisen testin lopussa. Kun teette luokkia jotka ovat riippuvaisia BookmarkIO:sta, käyttäkää riippuvuutuena rajapintaa DatabaseIO ja testeissä injektoikaa stubi, kuten laskareissa opimme.
 
+Definition of Done pitää määritellä Cucumberin avulla, joten kyseinen työkalu on konfiguroitu. `dummy.feature` on projektissa mukana toistaiseksi, kunnes koodin varsinaisia osuuksia saadaan määriteltyä tuon avulla.
+
 ## BookmarkIO
 Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina metodeina ovat: 
    - Find(id) palauttaa Bookmark:in jos id:llä löytyy, muuten null
