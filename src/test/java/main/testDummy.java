@@ -1,3 +1,5 @@
+package main;
+
 import main.Dummy;
 import org.junit.Test;
 import static org.junit.Assert.*;
