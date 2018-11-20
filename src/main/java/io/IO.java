@@ -24,5 +24,6 @@ public interface IO {
     void addLines(String... lines);
     boolean hasNextLine();
     String nextLine();
+    void print(String... lines);
     void close();
 }

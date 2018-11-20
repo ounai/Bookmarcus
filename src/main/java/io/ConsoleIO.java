@@ -11,23 +11,17 @@ import java.util.Scanner;
  *
  * @author Jori Lampi
  */
-public class ScannerIO implements IO {
-    
-    private final static Scanner SYSTEM_IN = new Scanner(System.in);
+public class ConsoleIO implements IO {
     
     private final Scanner scanner;
-
-    public ScannerIO() {
-        this(SYSTEM_IN);
-    }
     
-    public ScannerIO(Scanner scanner) {
-        this.scanner = scanner;
+    public ConsoleIO() {
+        this.scanner = new Scanner(System.in);
     }
     
     @Override
     public void addLines(String... lines) {
-        throw new UnsupportedOperationException("ScannerIO doesn't support this method.");
+        throw new UnsupportedOperationException("ConsoleIO doesn't support this method.");
     }
 
     @Override
@@ -37,12 +31,20 @@ public class ScannerIO implements IO {
 
     @Override
     public String nextLine() {
+        System.out.print("> ");
         return scanner.nextLine();
     }
 
     @Override
     public void close() {
         scanner.close();
+    }
+
+    @Override
+    public void print(String... lines) {
+        for (String line : lines) {
+            System.out.println(line);
+        }
     }
     
 }
