@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author daniel
  */
-public class BookmarkIO implements DatabaseIO {
+public class BookmarkIO implements DatabaseIO<Bookmark> {
 
     private String dbPath;
 

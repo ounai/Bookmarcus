@@ -11,10 +11,10 @@ import java.util.ArrayList;
  *
  * @author daniel
  */
-public interface DatabaseIO {
+public interface DatabaseIO<T> {
     public Bookmark find(int id);
     public ArrayList<Bookmark> getAll();
     public boolean delete(int id);
-    public boolean delete(Bookmark bookmark);
-    public boolean add(Bookmark bookmark);
+    public boolean delete(T t);
+    public boolean add(T t);
 }
