@@ -6,18 +6,55 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         BookmarkIO bio = new BookmarkIO();
-        ArrayList<Bookmark> bookmarks = bio.getAll();
-        for (Bookmark bm : bookmarks) {
-            System.out.println(bm);
+
+        Scanner in = new Scanner(System.in);
+        while(true) {
+            System.out.println("Valitsee komento: ");
+            System.out.println("1) Listaa vinkit");
+            System.out.println("2) Lisää vinkki");
+            System.out.println("3) poista vinkki");
+            System.out.println("4) POISTU");
+            System.out.println("--------------------");
+            System.out.print("> ");
+
+            int command = Integer.parseInt(in.nextLine());
+            if(command == 1) {
+                ArrayList<Bookmark> bookmarks = bio.getAll();
+                for (Bookmark bm : bookmarks) {
+                    System.out.println("");
+                    System.out.println("\u001B[31m" + bm.getId() + "\u001B[0m"
+                            + "  " + "\u001B[32m" + bm.getName() + "\u001B[0m"
+                            + "   " + bm.getDescription());
+                }
+            } else if(command == 2) {
+                System.out.print("Anna vinkille nimi: ");
+                String name = in.nextLine();
+                System.out.println("Syötä vinkin sisältö: ");
+                String description = in.nextLine();
+                Bookmark newBookark = new Bookmark(name, description);
+                bio.add(newBookark);
+            } else if(command == 3) {
+                System.out.print("Syötä poistettavan vinkin numero: ");
+                int id = Integer.parseInt(in.nextLine());
+                boolean success = bio.delete(id);
+                if(success) {
+                    System.out.println("Vinkki on poistettu.");
+                } else {
+                    System.out.println("! - Syötä oikea vinkin numero.");
+                }
+            } else if(command == 4) {
+                break;
+            } else {
+                System.out.println("Tuntematon komento");
+            }
+            System.out.println("");
         }
-        System.out.println("Find id=1: ");
-        System.out.println(bio.find(1));
-        
     }
 
     public static void connect() {

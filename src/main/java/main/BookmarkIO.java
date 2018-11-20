@@ -68,7 +68,20 @@ public class BookmarkIO implements DatabaseIO {
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(find(id) == null) {
+            return false;
+        }
+
+        String sql = "DELETE FROM bookmark WHERE id = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
     }
 
     @Override
