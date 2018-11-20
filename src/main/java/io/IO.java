@@ -16,18 +16,13 @@
  */
 package io;
 
-import java.util.ArrayList;
-
-import main.Bookmark;
-
 /**
  *
  * @author WebCoodi
  */
-public interface DatabaseIO<T> {
-    public Bookmark find(int id);
-    public ArrayList<Bookmark> getAll();
-    public boolean delete(int id);
-    public boolean delete(T t);
-    public boolean add(T t);
+public interface IO {
+    void addLines(String... lines);
+    boolean hasNextLine();
+    String nextLine();
+    void close();
 }

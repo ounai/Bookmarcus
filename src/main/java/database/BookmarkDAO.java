@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
  */
-package io;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,23 +24,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import main.Bookmark;
 
 /**
  *
  * @author WebCoodi
  */
-public class BookmarkIO implements DatabaseIO<Bookmark> {
+public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     private final static String DEFAULT_DATABASE_PATH = "sql/db/Bookmarcus.db";
 
     private String dbPath;
 
-    public BookmarkIO() {
+    public BookmarkDAO() {
         this(DEFAULT_DATABASE_PATH);
     }
 
-    public BookmarkIO(String path) {
+    public BookmarkDAO(String path) {
         this.dbPath = path;
     }
 

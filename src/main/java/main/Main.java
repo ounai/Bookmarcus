@@ -1,21 +1,38 @@
-
+/*
+ * This file is part of Bookmarcus.
+ *
+ * Bookmarcus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Bookmarcus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
+ */
 package main;
+
+import database.Bookmark;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import io.BookmarkIO;
+import database.BookmarkDAO;
+import io.IO;
+import io.ScannerIO;
 
 public class Main {
 
     public static void main(String[] args) {
-        BookmarkIO bio = new BookmarkIO();
+        BookmarkDAO bio = new BookmarkDAO();
 
-        Scanner in = new Scanner(System.in);
+        IO io = new ScannerIO();
         while(true) {
             System.out.println("Valitsee komento: ");
             System.out.println("1) Listaa vinkit");
@@ -25,7 +42,7 @@ public class Main {
             System.out.println("--------------------");
             System.out.print("> ");
 
-            int command = Integer.parseInt(in.nextLine());
+            int command = Integer.parseInt(io.nextLine());
             if(command == 1) {
                 ArrayList<Bookmark> bookmarks = bio.getAll();
                 for (Bookmark bm : bookmarks) {
@@ -36,14 +53,14 @@ public class Main {
                 }
             } else if(command == 2) {
                 System.out.print("Anna vinkille nimi: ");
-                String name = in.nextLine();
+                String name = io.nextLine();
                 System.out.println("Syötä vinkin sisältö: ");
-                String description = in.nextLine();
+                String description = io.nextLine();
                 Bookmark newBookark = new Bookmark(name, description);
                 bio.add(newBookark);
             } else if(command == 3) {
                 System.out.print("Syötä poistettavan vinkin numero: ");
-                int id = Integer.parseInt(in.nextLine());
+                int id = Integer.parseInt(io.nextLine());
                 boolean success = bio.delete(id);
                 if(success) {
                     System.out.println("Vinkki on poistettu.");
@@ -57,6 +74,7 @@ public class Main {
             }
             System.out.println("");
         }
+        io.close();
     }
 
     public static void connect() {

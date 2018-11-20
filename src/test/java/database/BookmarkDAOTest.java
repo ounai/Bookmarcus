@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
  */
-package io;
+package database;
 
+import database.BookmarkDAO;
 import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.sql.Connection;
@@ -27,16 +28,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Bookmark;
 
 /**
  *
  * @author WebCoodi
  */
-public class BookmarkIOTest {
-    BookmarkIO bio;
+public class BookmarkDAOTest {
+    BookmarkDAO bio;
     
-    public BookmarkIOTest() {
+    public BookmarkDAOTest() {
     }
     
     
@@ -58,7 +58,7 @@ public class BookmarkIOTest {
             System.out.println(e);
         }
         
-        bio = new BookmarkIO("test.db");
+        bio = new BookmarkDAO("test.db");
     }
     
     @After
@@ -68,7 +68,7 @@ public class BookmarkIOTest {
     }
 
     /**
-     * Test of find method, of class BookmarkIO.
+     * Test of find method, of class BookmarkDAO.
      */
     @Test
     public void testFind() {
@@ -88,7 +88,7 @@ public class BookmarkIOTest {
     }
 
     /**
-     * Test of getAll method, of class BookmarkIO.
+     * Test of getAll method, of class BookmarkDAO.
      */
     @Test
     public void testGetAll() {
