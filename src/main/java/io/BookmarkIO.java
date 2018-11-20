@@ -1,9 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This file is part of Bookmarcus.
+ *
+ * Bookmarcus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Bookmarcus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
  */
-package main;
+package io;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,19 +23,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import main.Bookmark;
 
 /**
  *
- * @author daniel
+ * @author WebCoodi
  */
 public class BookmarkIO implements DatabaseIO<Bookmark> {
+
+    private final static String DEFAULT_DATABASE_PATH = "sql/db/Bookmarcus.db";
 
     private String dbPath;
 
     public BookmarkIO() {
-        this.dbPath = "sql/db/Bookmarcus.db";
+        this(DEFAULT_DATABASE_PATH);
     }
 
     public BookmarkIO(String path) {
@@ -49,7 +62,7 @@ public class BookmarkIO implements DatabaseIO<Bookmark> {
 
     @Override
     public ArrayList<Bookmark> getAll() {
-        ArrayList<Bookmark> bookmarks = new ArrayList();
+        ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description FROM bookmark";
 
         try (Connection conn = this.connect();
