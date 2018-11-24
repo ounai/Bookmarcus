@@ -31,4 +31,7 @@ Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina meto
 
 ## Tyyppi
 Tietokannassa on nyt vain useita eri sarakkeita. Eri tyypit käyttävät niistä vain osaa. Jos jokin on null,
-sitä ei kuulu näyttää ja eri tyyppien hallinnointi jää koodin hommaksi.
+sitä ei kuulu näyttää ja eri tyyppien hallinnointi jää koodin hommaksi. Tyyppisarake kertoo mikä tyyppi on kyseessä. Tällä hetkellä seuraavasti:
+   - 1 = Book
+   - 2 = Article
+   - 3 = Blogpost
