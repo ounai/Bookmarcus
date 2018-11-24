@@ -121,11 +121,11 @@ public class Bookmark {
     //Private functions
     
     private String bookToString() {
-        String s = "";
+        String s = "BOOK ";
         s += this.name;
         s += " ";
         s += this.author;
-        s += " ";
+        s += " - ";
         s += this.isbn;
         s += " ";
         s += this.description;

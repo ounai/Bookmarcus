@@ -1,1 +1,1 @@
-INSERT INTO bookmark (name) VALUES("testi");
+INSERT INTO bookmark (name, author, isbn, description, type) VALUES("TestiKirja", "Matti","123-345", "Hyvä kirja!", 1);

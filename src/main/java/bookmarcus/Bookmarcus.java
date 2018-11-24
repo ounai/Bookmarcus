@@ -42,9 +42,7 @@ public class Bookmarcus {
             if(command == 1) {
                 ArrayList<Bookmark> bookmarks = bdao.getAll();
                 for (Bookmark bm : bookmarks) {
-                    io.print("\u001B[31m" + bm.getId() + "\u001B[0m"
-                            + "  " + "\u001B[32m" + bm.getName() + "\u001B[0m"
-                            + "   " + bm.getDescription());
+                    io.print(bm.toString());
                 }
             } else if(command == 2) {
                 io.print("Anna vinkille nimi: ");

@@ -45,13 +45,17 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public Bookmark find(int id) {
         Bookmark bookmark = null;
-        String sql = "SELECT id, name, description FROM bookmark WHERE id = ?";
+        String sql = "SELECT * WHERE id = ?";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
 
             ResultSet rs = pstmt.executeQuery();
             bookmark = new Bookmark(rs.getInt("id"), rs.getString("name"), rs.getString("description"));
+            bookmark.setAuthor(rs.getString("author"));
+            bookmark.setIsbn(rs.getString("isbn"));
+            bookmark.setUrl(rs.getString("url"));
+            bookmark.setType(rs.getInt("type"));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -61,7 +65,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public ArrayList<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
-        String sql = "SELECT id, name, description FROM bookmark";
+        String sql = "SELECt * FROM bookmark";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
@@ -69,7 +73,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                bookmarks.add(new Bookmark(rs.getInt("id"), rs.getString("name"), rs.getString("description")));
+                Bookmark bm = new Bookmark(rs.getInt("id"), rs.getString("name"), rs.getString("description"));
+                bm.setAuthor(rs.getString("author"));
+                bm.setIsbn(rs.getString("isbn"));
+                bm.setUrl(rs.getString("url"));
+                bm.setType(rs.getInt("type"));
+                bookmarks.add(bm);
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -118,11 +128,15 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             return false;
         }
 
-        String sql = "INSERT INTO bookmark (name, description) VALUES (?, ?)";
+        String sql = "INSERT INTO bookmark (name, description, author, isbn, url, type) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, bookmark.getName());
             pstmt.setString(2, bookmark.getDescription());
+            pstmt.setString(3, bookmark.getAuthor());
+            pstmt.setString(4, bookmark.getIsbn());
+            pstmt.setString(5, bookmark.getUrl());
+            pstmt.setInt(6, bookmark.getType());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
