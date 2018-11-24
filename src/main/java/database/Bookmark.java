@@ -137,6 +137,6 @@ public class Bookmark {
     }
     
     private String blogpostToString() {
-        return this.name + " " + this.author + " " + this.description + " " + this.urls;
+        return this.name + " " + this.author + " " + this.description + " " + this.url;
     }
 }
