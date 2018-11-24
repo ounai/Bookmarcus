@@ -30,6 +30,13 @@ public class Bookmark {
     private int id;
     private String description;
     private String url;
+    private int type; // 1 = Book, 2 = Article, 3 = Blogpost
+    
+    // Book, Article, Blog type variables
+    private String author;
+    
+    //Book type variables
+    private String isbn;
 
     public String getUrl() {
         return url;
