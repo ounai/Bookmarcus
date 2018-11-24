@@ -4,6 +4,7 @@
 Bookmarking App
   * [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
 
+
 ## Tietokanta
 Tietokanta luodaan nyt build.gradlessa scriptillä. Luonti SQL löytyy sql/init.sql
 Jarit eivät oletuksena toimi koska jariin ei tule mukaan muita kansioita.
@@ -35,3 +36,6 @@ sitä ei kuulu näyttää ja eri tyyppien hallinnointi jää koodin hommaksi. Ty
    - 1 = Book
    - 2 = Article
    - 3 = Blogpost
+Bookmarkin rakenne on hieman sekava ja täytyy miettiä mitkä kaikki tulisi pitää konstruktorissa ja mitkä
+laittaa jälkikäteen. Kaikkia mahdollisia konstruktoreita olisi liikaa, joten parempi jos dataa annetaan
+settereillä. Tein tällaisen arkkitehtuuriratkaisun ajan säästämiseksi, oletan ettei tämä ohjelma kasva kovin suureksi.
