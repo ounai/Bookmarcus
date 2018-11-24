@@ -114,7 +114,7 @@ public class Bookmark {
             case 3:
                 return blogpostToString();
             default:
-                return "Unkown bookmark";
+                return "Unknown bookmark";
         }
     }
     
