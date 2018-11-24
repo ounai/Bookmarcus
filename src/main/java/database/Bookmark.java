@@ -31,6 +31,30 @@ public class Bookmark {
     private String description;
     private String url;
     private int type; // 1 = Book, 2 = Article, 3 = Blogpost
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
     
     // Book, Article, Blog type variables
     private String author;
