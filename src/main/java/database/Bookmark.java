@@ -106,6 +106,37 @@ public class Bookmark {
 
     @Override
     public String toString() {
-        return "" + this.id + " " + this.name + " " + this.description;
+        switch (this.type) {
+            case 1:
+                return bookToString();
+            case 2:
+                return articleToString();
+            case 3:
+                return blogpostToString();
+            default:
+                return "Unkown bookmark";
+        }
+    }
+    
+    //Private functions
+    
+    private String bookToString() {
+        String s = "";
+        s += this.name;
+        s += " ";
+        s += this.author;
+        s += " ";
+        s += this.isbn;
+        s += " ";
+        s += this.description;
+        return s;
+    }
+    
+    private String articleToString() {
+        return this.name +" "+this.author+" " + this.description +" "+this.url;
+    }
+    
+    private String blogpostToString() {
+        return this.name + " " + this.author + " " + this.description + " " + this.urls;
     }
 }
