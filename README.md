@@ -28,3 +28,7 @@ Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina meto
    - add(Bookmark)  lisää uuden Bookmarkin tietokantaan. Palauttaa true jos onnistui, muuten false
    - delete(id)  ei vielä implementoitu
    - delete(Bookmark)  ei vielä implementoitu
+
+## Tyyppi
+Tietokannassa on nyt vain useita eri sarakkeita. Eri tyypit käyttävät niistä vain osaa. Jos jokin on null,
+sitä ei kuulu näyttää ja eri tyyppien hallinnointi jää koodin hommaksi.
