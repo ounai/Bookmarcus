@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author WebCoodi
@@ -80,13 +79,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     @Override
     public boolean delete(int id) {
-        if(find(id) == null) {
+        if (find(id) == null) {
             return false;
         }
 
         String sql = "DELETE FROM bookmark WHERE id = ?";
         try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.execute();
         } catch (SQLException e) {

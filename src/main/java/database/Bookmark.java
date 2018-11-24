@@ -29,6 +29,15 @@ public class Bookmark {
     private String name;
     private int id;
     private String description;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Bookmark(String name) {
         this(MISSING_ID_PLACEHOLDER, name, EMPTY_DESCRIPTION);
