@@ -121,7 +121,7 @@ public class Bookmark {
     //Private functions
     
     private String bookToString() {
-        String s = "BOOK ";
+        String s = this.id + " BOOK ";
         s += this.name;
         s += " ";
         s += this.author;

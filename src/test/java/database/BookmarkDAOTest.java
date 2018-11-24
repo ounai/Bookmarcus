@@ -28,27 +28,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  *
  * @author WebCoodi
  */
 public class BookmarkDAOTest {
+
     BookmarkDAO bio;
-    
+    String testdbPath = "test.db";
+
     public BookmarkDAOTest() {
     }
-    
-    
+
     @Before
-    public void setUp() {
-        String testdbPath = "test.db";
+    public void setUp() throws SQLException {
+
         String testdb = "jdbc:sqlite:" + testdbPath;
-        
+
         try (Connection conn = DriverManager.getConnection(testdb)) {
             if (conn != null) {
                 System.out.println("Test database created");
-                String sql = "CREATE TABLE IF NOT EXISTS bookmark (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT);";
+                String sql = "CREATE TABLE bookmark (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT, author TEXT, isbn VARCHAR, url TEXT,type INTEGER);";
                 Statement stmt = conn.createStatement();
                 stmt.execute(sql);
             } else {
@@ -56,14 +56,15 @@ public class BookmarkDAOTest {
             }
         } catch (SQLException e) {
             System.out.println(e);
+            throw e;
         }
-        
-        bio = new BookmarkDAO("test.db");
+
+        bio = new BookmarkDAO(testdbPath);
     }
-    
+
     @After
     public void tearDown() {
-        File  f = new File("test.db");
+        File f = new File(testdbPath);
         f.delete();
     }
 
@@ -73,9 +74,11 @@ public class BookmarkDAOTest {
     @Test
     public void testFind() {
         Bookmark bm = new Bookmark("test", "desc");
+        bm.setName("test");
         bio.add(bm);
         assertEquals(bio.find(1).getName(), "test");
     }
+
     @Test
     public void testAdd() {
         Bookmark bm = new Bookmark("test", "desc");
@@ -100,10 +103,7 @@ public class BookmarkDAOTest {
         bio.add(bm3);
         ArrayList<Bookmark> bms = bio.getAll();
         assertEquals(3, bms.size());
-        
+
     }
-    
 
-
-    
 }

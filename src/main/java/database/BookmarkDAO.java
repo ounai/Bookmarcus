@@ -45,7 +45,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public Bookmark find(int id) {
         Bookmark bookmark = null;
-        String sql = "SELECT * WHERE id = ?";
+        String sql = "SELECT id, name, description, author, isbn, url, type FROM bookmark WHERE id = ?;";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -58,6 +58,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             bookmark.setType(rs.getInt("type"));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("error on tässä");
         }
         return bookmark;
     }
@@ -65,7 +66,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public ArrayList<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
-        String sql = "SELECt * FROM bookmark";
+        String sql = "SELECT id, name, description, author, isbn, url, type FROM bookmark;";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
@@ -93,7 +94,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             return false;
         }
 
-        String sql = "DELETE FROM bookmark WHERE id = ?";
+        String sql = "DELETE FROM bookmark WHERE id = ?;";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -128,7 +129,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             return false;
         }
 
-        String sql = "INSERT INTO bookmark (name, description, author, isbn, url, type) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bookmark (name, description, author, isbn, url, type) VALUES (?, ?, ?, ?, ?, ?);";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, bookmark.getName());
