@@ -35,40 +35,58 @@ public class Bookmarcus {
     }
     
     public void consoleApp() {
+        WHILE:
         while(io.hasNextLine()) {
             io.print("Valitsee komento:");
-            io.print("1) Listaa vinkit", "2) Lisää vinkki", "3) poista vinkki", "4) POISTU");
+            io.print("1) Listaa vinkit", "2) Uusi vinkki", "3) poista vinkki", "4) POISTU");
             io.print("--------------------");
 
-            int command = Integer.parseInt(io.nextLine());
-            if(command == 1) {
-                ArrayList<Bookmark> bookmarks = bdao.getAll();
-                for (Bookmark bm : bookmarks) {
-                    io.print(bm.toString());
-                }
-            } else if(command == 2) {
-                io.print("Anna vinkille nimi: ");
-                String name = io.nextLine();
-                io.print("Syötä vinkin sisältö: ");
-                String description = io.nextLine();
-                Bookmark newBookark = new Bookmark(name, description);
-                bdao.add(newBookark);
-            } else if(command == 3) {
-                io.print("Syötä poistettavan vinkin numero: ");
-                int id = Integer.parseInt(io.nextLine());
-                boolean success = bdao.delete(id);
-                if(success) {
-                    io.print("Vinkki on poistettu.");
-                } else {
-                    io.print("! - Syötä oikea vinkin numero.");
-                }
-            } else if(command == 4) {
-                break;
-            } else {
-                io.print("Tuntematon komento");
+            switch (io.nextLine().toLowerCase()) {
+                case "1":
+                    ArrayList<Bookmark> bookmarks = bdao.getAll();
+                    for (Bookmark bm : bookmarks) {
+                        io.print(bm.toString());
+                    }
+                    break;
+                case "2": case "uusi":
+                    add();
+                    break;
+                case "3":
+                    io.print("Syötä poistettavan vinkin numero: ");
+                    int id = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+                    boolean success = bdao.delete(id);
+                    if(success) {
+                        io.print("Vinkki on poistettu.");
+                    } else {
+                        io.print("! - Syötä oikea vinkin numero.");
+                    }
+                    break;
+                case "4":
+                    break WHILE;
+                default:
+                    io.print("Tuntematon komento");
             }
             io.print("");
         }
+    }
+
+    private void add() {
+        Bookmark bookmark = new Bookmark();
+        io.print("Anna vinkin tyyppi. Vaihtoehdot: kirja");
+        String type = io.nextLine();
+        switch (type.toLowerCase()) {
+            case "kirja":
+                bookmark.setType(1);
+                io.print("Syötä kirjan nimi:");
+                bookmark.setName(io.nextLine());
+                io.print("Syötä kirjailijan nimi:");
+                bookmark.setAuthor(io.nextLine());
+                break;
+            default:
+                io.print("Tuntematon tyyppi");
+                return;
+        }
+        bdao.add(bookmark);
     }
     
 }

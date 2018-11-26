@@ -70,6 +70,10 @@ public class Bookmark {
         this.url = url;
     }
 
+    public Bookmark() {
+        this.id = MISSING_ID_PLACEHOLDER;
+    }
+
     public Bookmark(String name) {
         this(MISSING_ID_PLACEHOLDER, name, EMPTY_DESCRIPTION);
     }
