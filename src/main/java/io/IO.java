@@ -21,7 +21,6 @@ package io;
  * @author WebCoodi
  */
 public interface IO {
-    void addLines(String... lines);
     boolean hasNextLine();
     String nextLine();
     void print(String... lines);

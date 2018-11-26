@@ -18,15 +18,10 @@ public class ConsoleIO implements IO {
     public ConsoleIO() {
         this.scanner = new Scanner(System.in);
     }
-    
-    @Override
-    public void addLines(String... lines) {
-        throw new UnsupportedOperationException("ConsoleIO doesn't support this method.");
-    }
 
     @Override
     public boolean hasNextLine() {
-        return scanner.hasNextLine();
+        return true;
     }
 
     @Override
