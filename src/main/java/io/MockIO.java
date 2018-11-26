@@ -2,6 +2,7 @@
 package io;
 
 import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public class MockIO implements IO {
@@ -27,7 +28,11 @@ public class MockIO implements IO {
 
     @Override
     public String nextLine() {
-        return input.poll();
+        if (input.size() > 0) {
+            return input.poll();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override

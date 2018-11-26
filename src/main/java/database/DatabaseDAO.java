@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * @author WebCoodi
  */
 public interface DatabaseDAO<T> {
-    public Bookmark find(int id);
+    public T find(int id);
     public ArrayList<Bookmark> getAll();
     public boolean delete(int id);
     public boolean delete(T t);

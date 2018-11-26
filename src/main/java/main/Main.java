@@ -17,6 +17,7 @@
 package main;
 
 import bookmarcus.Bookmarcus;
+import database.BookmarkDAO;
 import io.IO;
 import io.ConsoleIO;
 
@@ -24,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) {
         IO io = new ConsoleIO();
-        new Bookmarcus().consoleApp(io);
+        new Bookmarcus(new BookmarkDAO(), io).consoleApp();
         io.close();
     }
 

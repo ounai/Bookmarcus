@@ -17,7 +17,7 @@
 package bookmarcus;
 
 import database.Bookmark;
-import database.BookmarkDAO;
+import database.DatabaseDAO;
 import io.IO;
 import java.util.ArrayList;
 
@@ -26,14 +26,16 @@ import java.util.ArrayList;
  * @author WebCoodi
  */
 public class Bookmarcus {
-    private final BookmarkDAO bdao;
-    
-    public Bookmarcus() {
-        this.bdao = new BookmarkDAO();
+    private final DatabaseDAO<Bookmark> bdao;
+    private final IO io;
+
+    public Bookmarcus(DatabaseDAO<Bookmark> bdao, IO io) {
+        this.bdao = bdao;
+        this.io = io;
     }
     
-    public void consoleApp(IO io) {
-        while(true) {
+    public void consoleApp() {
+        while(io.hasNextLine()) {
             io.print("Valitsee komento:");
             io.print("1) Listaa vinkit", "2) Lisää vinkki", "3) poista vinkki", "4) POISTU");
             io.print("--------------------");
