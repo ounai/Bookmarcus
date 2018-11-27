@@ -141,16 +141,16 @@ public class Bookmark {
     //Private functions
     private String bookToString() {
         return this.id + " BOOK " + this.name + " " + this.author + " - " + this.isbn + " " + this.description
-                + (this.isRead() ? "(luettu)" : "(lukematon)");
+                + " "+(this.isRead() ? "(luettu)" : "(lukematon)");
     }
 
     private String articleToString() {
         return this.id + " ARTICLE " + this.name + " " + this.author + " " + this.description + " " + this.url
-                + (this.isRead() ? "(luettu)" : "(lukematon)");
+                + " " + (this.isRead() ? "(luettu)" : "(lukematon)");
     }
 
     private String blogpostToString() {
         return this.id + " BLOGPOST " + this.name + " " + this.author + " " + this.description + " " + this.url
-                + (this.isRead() ? "(luettu)" : "(lukematon)");
+                + " "+(this.isRead() ? "(luettu)" : "(lukematon)");
     }
 }
