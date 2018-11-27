@@ -50,7 +50,7 @@ public class Stepdefs {
 
     @Then("^a new bookmark is created$")
     public void a_new_bookmark_is_created() throws Throwable {
-        inputFeed = inputFeed.thenReturn("4").thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
         when(mockIO.hasNextLine()).thenReturn(true);
         Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
         verify(mockDAO, times(0)).add(any(Bookmark.class));

@@ -26,6 +26,11 @@ import java.util.ArrayList;
  * @author WebCoodi
  */
 public class Bookmarcus {
+
+    // These are used for consistent calling when numbers may change
+    public final static String UUSI_COMMAND = "uusi";
+    public final static String POISTU_COMMAND = "poistu";
+
     private final DatabaseDAO<Bookmark> bdao;
     private final IO io;
 
@@ -48,7 +53,7 @@ public class Bookmarcus {
                         io.print(bm.toString());
                     }
                     break;
-                case "2": case "uusi":
+                case "2": case UUSI_COMMAND:
                     add();
                     break;
                 case "3":
@@ -83,7 +88,7 @@ public class Bookmarcus {
                         io.print("! - Syötä oikea vinkin numero.");
                     }
                     break;
-                case "7":
+                case "7": case POISTU_COMMAND:
                     break WHILE;
                 default:
                     io.print("Tuntematon komento");
@@ -98,7 +103,7 @@ public class Bookmarcus {
         String type = io.nextLine();
         switch (type.toLowerCase()) {
             case "artikkeli":
-                bookmark.setType(2);
+                bookmark.setType(Bookmark.TYPE_ARTICLE);
                 io.print("Syötä artikkelin nimi:");
                 bookmark.setName(io.nextLine());
                 io.print("Syötä artikkelin kirjoittaja:");
@@ -107,7 +112,7 @@ public class Bookmarcus {
                 bookmark.setUrl(io.nextLine());
                 break;
             case "blogikirjoitus":
-                bookmark.setType(3);
+                bookmark.setType(Bookmark.TYPE_BLOGPOST);
                 io.print("Syötä blogikirjoituksen otsikko:");
                 bookmark.setName(io.nextLine());
                 io.print("Syötä blogikirjoituksen kirjoittaja:");
@@ -116,7 +121,7 @@ public class Bookmarcus {
                 bookmark.setUrl(io.nextLine());
                 break;
             case "kirja":
-                bookmark.setType(1);
+                bookmark.setType(Bookmark.TYPE_BOOK);
                 io.print("Syötä kirjan nimi:");
                 bookmark.setName(io.nextLine());
                 io.print("Syötä kirjailijan nimi:");
