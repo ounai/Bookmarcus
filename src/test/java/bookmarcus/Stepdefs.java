@@ -38,6 +38,11 @@ public class Stepdefs {
         inputFeed = inputFeed.thenReturn(name, author, isbn);
     }
 
+    @When("^name \"([^\"]*)\", author \"([^\"]*)\" and url \"([^\"]*)\" are entered$")
+    public void name_author_and_url_are_entered(String name, String author, String url) throws Throwable {
+        inputFeed = inputFeed.thenReturn(name, author, url);
+    }
+
     @When("^the following notes are entered: \"([^\"]*)\"$")
     public void the_following_notes_are_entered(String notes) throws Throwable {
         inputFeed = inputFeed.thenReturn(notes);
