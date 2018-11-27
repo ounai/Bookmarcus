@@ -113,11 +113,7 @@ public class Bookmark {
     }
 
     public void setRead(int read) {
-        if(read == 1) {
-            this.read = true;
-        } else {
-            this.read = false;
-        }
+        this.read = (read == READ_TRUE);
     }
 
     public int getRead() {
