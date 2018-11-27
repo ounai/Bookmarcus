@@ -38,7 +38,7 @@ public class Bookmarcus {
         WHILE:
         while(io.hasNextLine()) {
             io.print("Valitsee komento:");
-            io.print("1) Listaa vinkit", "2) Uusi vinkki", "3) poista vinkki", "4) POISTU");
+            io.print("1) Listaa vinkit", "2) Uusi vinkki", "3) Poista vinkki", "4) Listaa lukemattomat vinkit", "5) Listaa luetut vinkit", "6) Merkitse vinkki luetuksi", "7) POISTU");
             io.print("--------------------");
 
             switch (io.nextLine().toLowerCase()) {
@@ -62,6 +62,28 @@ public class Bookmarcus {
                     }
                     break;
                 case "4":
+                    ArrayList<Bookmark> unRead = bdao.getAllUnRead();
+                    for (Bookmark bm : unRead) {
+                        io.print(bm.toString());
+                    }
+                    break;
+                case "5":
+                    ArrayList<Bookmark> read = bdao.getAllRead();
+                    for (Bookmark bm : read) {
+                        io.print(bm.toString());
+                    }
+                    break;
+                case "6":
+                    io.print("Syötä luetuksi merkattavan vinkin numero: ");
+                    int readId = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+                    boolean readSuccess = bdao.markAsRead(readId);
+                    if(readSuccess) {
+                        io.print("Vinkki on merkitty luetuksi.");
+                    } else {
+                        io.print("! - Syötä oikea vinkin numero.");
+                    }
+                    break;
+                case "7":
                     break WHILE;
                 default:
                     io.print("Tuntematon komento");

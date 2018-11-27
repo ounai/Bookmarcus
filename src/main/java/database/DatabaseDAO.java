@@ -26,7 +26,10 @@ import java.util.ArrayList;
 public interface DatabaseDAO<T> {
     public T find(int id);
     public ArrayList<Bookmark> getAll();
+    public ArrayList<Bookmark> getAllRead();
+    public ArrayList<Bookmark> getAllUnRead();
     public boolean delete(int id);
     public boolean delete(T t);
     public boolean add(T t);
+    public boolean markAsRead(int id);
 }

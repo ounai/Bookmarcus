@@ -35,6 +35,7 @@ public class Bookmark {
     private String description;
     private String url;
     private int type; // 1 = Book, 2 = Article, 3 = Blogpost
+    private boolean read;
 
     // Book, Article, Blog type variables
     private String author;
@@ -76,20 +77,24 @@ public class Bookmark {
 
     public Bookmark() {
         this.id = MISSING_ID_PLACEHOLDER;
+        this.read = false;
     }
 
     public Bookmark(String name) {
         this(MISSING_ID_PLACEHOLDER, name, EMPTY_DESCRIPTION);
+        this.read = false;
     }
 
     public Bookmark(String name, String description) {
         this(MISSING_ID_PLACEHOLDER, name, description);
+        this.read = false;
     }
 
     public Bookmark(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.read = false;
     }
 
     public String getName() {
@@ -112,6 +117,26 @@ public class Bookmark {
         this.description = description;
     }
 
+    public boolean isRead() {
+        return this.read;
+    }
+
+    public void setRead(int read) {
+        if(read == 1) {
+            this.read = true;
+        } else {
+            this.read = false;
+        }
+    }
+
+    public int getRead() {
+        if(this.read) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public String toString() {
         switch (this.type) {
@@ -128,14 +153,17 @@ public class Bookmark {
 
     //Private functions
     private String bookToString() {
-        return this.id + " BOOK " + this.name + " " + this.author + " - " + this.isbn + " " + this.description;
+        return this.id + " BOOK " + this.name + " " + this.author + " - " + this.isbn + " " + this.description
+                + (this.isRead() ? "(luettu)" : "(lukematon)");
     }
 
     private String articleToString() {
-        return this.id + " ARTICLE " + this.name + " " + this.author + " " + this.description + " " + this.url;
+        return this.id + " ARTICLE " + this.name + " " + this.author + " " + this.description + " " + this.url
+                + (this.isRead() ? "(luettu)" : "(lukematon)");
     }
 
     private String blogpostToString() {
-        return this.id + " BLOGPOST " + this.name + " " + this.author + " " + this.description + " " + this.url;
+        return this.id + " BLOGPOST " + this.name + " " + this.author + " " + this.description + " " + this.url
+                + (this.isRead() ? "(luettu)" : "(lukematon)");
     }
 }
