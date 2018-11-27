@@ -25,6 +25,10 @@ public class Bookmark {
 
     private final static int MISSING_ID_PLACEHOLDER = -1;
     private final static String EMPTY_DESCRIPTION = "";
+    
+    public final static int TYPE_BOOK = 1;
+    public final static int TYPE_ARTICLE = 2;
+    public final static int TYPE_BLOGPOST = 3;
 
     private String name;
     private int id;
@@ -111,14 +115,14 @@ public class Bookmark {
     @Override
     public String toString() {
         switch (this.type) {
-            case 1:
+            case TYPE_BOOK:
                 return bookToString();
-            case 2:
+            case TYPE_ARTICLE:
                 return articleToString();
-            case 3:
+            case TYPE_BLOGPOST:
                 return blogpostToString();
             default:
-                return "Unknown bookmark";
+                return "Bookmark type not defined";
         }
     }
     
