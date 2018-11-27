@@ -80,22 +80,11 @@ public class Bookmark {
         this.read = false;
     }
 
-    public Bookmark(String name) {
-        this(MISSING_ID_PLACEHOLDER, name, EMPTY_DESCRIPTION);
-        this.read = false;
-    }
-
-    public Bookmark(String name, String description) {
-        this(MISSING_ID_PLACEHOLDER, name, description);
-        this.read = false;
-    }
-
-    public Bookmark(int id, String name, String description) {
+    public void setId(int id) {
         this.id = id;
-        this.name = name;
-        this.description = description;
-        this.read = false;
     }
+
+
 
     public String getName() {
         return name;
