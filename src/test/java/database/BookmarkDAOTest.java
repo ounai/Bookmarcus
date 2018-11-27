@@ -35,6 +35,9 @@ import org.junit.Test;
 public class BookmarkDAOTest {
 
     BookmarkDAO bio;
+    Bookmark bm;
+    Bookmark bm2;
+    Bookmark bm3;
     String testdbPath = "test.db";
 
     public BookmarkDAOTest() {
@@ -60,6 +63,23 @@ public class BookmarkDAOTest {
         }
 
         bio = new BookmarkDAO(testdbPath);
+        bm = new Bookmark();
+        bm.setType(Bookmark.TYPE_BOOK);
+        bm.setAuthor("Writer Gurd");
+        bm.setName("How NOT to test code");
+        bm.setDescription("This is a nice book for me");
+        bm.setIsbn("1234-6789");
+        bm2 = new Bookmark();
+        bm2.setType(Bookmark.TYPE_BLOGPOST);
+        bm2.setAuthor("Markus the blogger");
+        bm2.setDescription("This was a funny blogpost");
+        bm2.setName("How NOT to write too long methods");
+        bm2.setUrl("localhost:8080");
+        bm3 = new Bookmark();
+        bm3.setType(Bookmark.TYPE_ARTICLE);
+        bm3.setName("Git gud: how to test");
+        bm3.setAuthor("Professor X");
+        bm3.setDescription("I learned a lot from this");
     }
 
     @After
@@ -73,21 +93,17 @@ public class BookmarkDAOTest {
      */
     @Test
     public void testFind() {
-        Bookmark bm = new Bookmark("test", "desc");
-        bm.setName("test");
         bio.add(bm);
-        assertEquals(bio.find(1).getName(), "test");
+        assertEquals(bio.find(1).getName(), "How NOT to test code");
     }
 
     @Test
     public void testAdd() {
-        Bookmark bm = new Bookmark("test", "desc");
-        Bookmark bm2 = new Bookmark("test2", "desc2");
         bio.add(bm);
         bio.add(bm2);
         ArrayList<Bookmark> bms = bio.getAll();
         assertEquals(2, bms.size());
-        assertEquals(bio.find(1).getName(), "test");
+        assertEquals(bio.find(1).getName(), "How NOT to test code");
     }
 
     /**
@@ -95,9 +111,7 @@ public class BookmarkDAOTest {
      */
     @Test
     public void testGetAll() {
-        Bookmark bm = new Bookmark("test", "desc");
-        Bookmark bm2 = new Bookmark("test2", "desc2");
-        Bookmark bm3 = new Bookmark("test3", "desc3");
+
         bio.add(bm);
         bio.add(bm2);
         bio.add(bm3);
@@ -108,14 +122,7 @@ public class BookmarkDAOTest {
 
     @Test
     public void testDeleteById() {
-        Bookmark bm = new Bookmark("test", "desc");
-        bm.setType(1);
-        bm.setAuthor("Markus");
-        bm.setIsbn("1234-1234");
-        Bookmark bm2 = new Bookmark("test", "desc");
-        bm2.setType(1);
-        bm2.setAuthor("Markus");
-        bm2.setIsbn("1234-1234");
+
         bio.add(bm);
         bio.add(bm2);
         bio.delete(1);
@@ -124,9 +131,6 @@ public class BookmarkDAOTest {
     
     @Test
     public void testDeleteIdNotFound() {
-        Bookmark bm = new Bookmark();
-        bm.setName("Test");
-        bm.setType(1);
         bio.add(bm);
         assertEquals(bio.delete(5), false);
     }
