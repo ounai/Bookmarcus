@@ -25,7 +25,7 @@ public class Bookmark {
 
     private final static int MISSING_ID_PLACEHOLDER = -1;
     private final static String EMPTY_DESCRIPTION = "";
-    
+
     public final static int TYPE_BOOK = 1;
     public final static int TYPE_ARTICLE = 2;
     public final static int TYPE_BLOGPOST = 3;
@@ -125,26 +125,17 @@ public class Bookmark {
                 return "Bookmark type not defined";
         }
     }
-    
+
     //Private functions
-    
     private String bookToString() {
-        String s = this.id + " BOOK ";
-        s += this.name;
-        s += " ";
-        s += this.author;
-        s += " - ";
-        s += this.isbn;
-        s += " ";
-        s += this.description;
-        return s;
+        return this.id + " BOOK " + this.name + " " + this.author + " - " + this.isbn + " " + this.description;
     }
-    
+
     private String articleToString() {
-        return this.name +" "+this.author+" " + this.description +" "+this.url;
+        return this.id + " ARTICLE " + this.name + " " + this.author + " " + this.description + " " + this.url;
     }
-    
+
     private String blogpostToString() {
-        return this.name + " " + this.author + " " + this.description + " " + this.url;
+        return this.id + " BLOGPOST " + this.name + " " + this.author + " " + this.description + " " + this.url;
     }
 }
