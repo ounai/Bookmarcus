@@ -106,4 +106,36 @@ public class BookmarkDAOTest {
 
     }
 
+    @Test
+    public void testDeleteById() {
+        Bookmark bm = new Bookmark("test", "desc");
+        bm.setType(1);
+        bm.setAuthor("Markus");
+        bm.setIsbn("1234-1234");
+        Bookmark bm2 = new Bookmark("test", "desc");
+        bm2.setType(1);
+        bm2.setAuthor("Markus");
+        bm2.setIsbn("1234-1234");
+        bio.add(bm);
+        bio.add(bm2);
+        bio.delete(1);
+        assertEquals(1, bio.getAll().size());
+    }
+    
+    @Test
+    public void testDeleteIdNotFound() {
+        Bookmark bm = new Bookmark();
+        bm.setName("Test");
+        bm.setType(1);
+        bio.add(bm);
+        assertEquals(bio.delete(5), false);
+    }
+
+    @Test
+    public void testConnectionWrongDBAddress() {
+        BookmarkDAO b = new BookmarkDAO("wrong");
+        assertEquals(b.add(new Bookmark()), false);
+
+    }
+
 }

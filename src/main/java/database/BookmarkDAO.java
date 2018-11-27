@@ -39,7 +39,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     }
 
     public BookmarkDAO(String path) {
-        this.dbPath = path;
+        this.dbPath = path; 
     }
 
     @Override
@@ -183,7 +183,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Connection connect() {
+    private Connection connect() throws SQLException {
         // SQLite connection string
         String url = "jdbc:sqlite:" + this.dbPath;
         Connection conn = null;
@@ -191,6 +191,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            throw e;
         }
         return conn;
     }
