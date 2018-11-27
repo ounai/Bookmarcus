@@ -61,7 +61,11 @@ public class BookmarkDAOTest {
             System.out.println(e);
             throw e;
         }
+        setUpLocalVariables();
 
+    }
+
+    private void setUpLocalVariables() {
         bio = new BookmarkDAO(testdbPath);
         bm = new Bookmark();
         bm.setType(Bookmark.TYPE_BOOK);
@@ -80,6 +84,7 @@ public class BookmarkDAOTest {
         bm3.setName("Git gud: how to test");
         bm3.setAuthor("Professor X");
         bm3.setDescription("I learned a lot from this");
+
     }
 
     @After
@@ -128,7 +133,7 @@ public class BookmarkDAOTest {
         bio.delete(1);
         assertEquals(1, bio.getAll().size());
     }
-    
+
     @Test
     public void testDeleteIdNotFound() {
         bio.add(bm);
