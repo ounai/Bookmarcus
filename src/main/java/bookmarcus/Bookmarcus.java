@@ -94,20 +94,42 @@ public class Bookmarcus {
 
     private void add() {
         Bookmark bookmark = new Bookmark();
-        io.print("Anna vinkin tyyppi. Vaihtoehdot: kirja");
+        io.print("Anna vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja");
         String type = io.nextLine();
         switch (type.toLowerCase()) {
+            case "artikkeli":
+                bookmark.setType(2);
+                io.print("Syötä artikkelin nimi:");
+                bookmark.setName(io.nextLine());
+                io.print("Syötä artikkelin kirjoittaja:");
+                bookmark.setAuthor(io.nextLine());
+                io.print("Syötä artikkelin osoite:");
+                bookmark.setUrl(io.nextLine());
+                break;
+            case "blogikirjoitus":
+                bookmark.setType(3);
+                io.print("Syötä blogikirjoituksen otsikko:");
+                bookmark.setName(io.nextLine());
+                io.print("Syötä blogikirjoituksen kirjoittaja:");
+                bookmark.setAuthor(io.nextLine());
+                io.print("Syötä blogikirjoituksen osoite:");
+                bookmark.setUrl(io.nextLine());
+                break;
             case "kirja":
                 bookmark.setType(1);
                 io.print("Syötä kirjan nimi:");
                 bookmark.setName(io.nextLine());
                 io.print("Syötä kirjailijan nimi:");
                 bookmark.setAuthor(io.nextLine());
+                io.print("Syötä kirjan ISBN-tunnus:");
+                bookmark.setIsbn(io.nextLine());
                 break;
             default:
-                io.print("Tuntematon tyyppi");
+                io.print("! - Tuntematon tyyppi");
                 return;
         }
+        io.print("Lisää vinkkiä koskevat muistiinpanot:");
+        bookmark.setDescription(io.nextLine());
         bdao.add(bookmark);
     }
     
