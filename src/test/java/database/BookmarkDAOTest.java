@@ -99,7 +99,7 @@ public class BookmarkDAOTest {
     @Test
     public void testFind() {
         bio.add(bm);
-        assertEquals(bio.find(1).getName(), "How NOT to test code");
+        assertEquals(bio.find(1).getName(), bm.getName());
     }
 
     @Test
@@ -108,7 +108,7 @@ public class BookmarkDAOTest {
         bio.add(bm2);
         ArrayList<Bookmark> bms = bio.getAll();
         assertEquals(2, bms.size());
-        assertEquals(bio.find(1).getName(), "How NOT to test code");
+        assertEquals(bio.find(1).getName(), bm.getName());
     }
 
     /**
