@@ -29,6 +29,8 @@ public class Bookmark {
     public final static int TYPE_BOOK = 1;
     public final static int TYPE_ARTICLE = 2;
     public final static int TYPE_BLOGPOST = 3;
+    public final static int READ_TRUE = 1;
+    public final static int READ_FALSE = 0;
 
     private String name;
     private int id;
