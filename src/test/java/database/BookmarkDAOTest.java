@@ -51,7 +51,7 @@ public class BookmarkDAOTest {
         try (Connection conn = DriverManager.getConnection(testdb)) {
             if (conn != null) {
                 System.out.println("Test database created");
-                String sql = "CREATE TABLE bookmark (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT, author TEXT, isbn VARCHAR, url TEXT,type INTEGER);";
+                String sql = "CREATE TABLE bookmark (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT, author TEXT, isbn VARCHAR, url TEXT,type INTEGER, read INTEGER);";
                 Statement stmt = conn.createStatement();
                 stmt.execute(sql);
             } else {
