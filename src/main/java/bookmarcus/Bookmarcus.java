@@ -148,6 +148,27 @@ public class Bookmarcus {
         }
 
         int fieldToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+        String oldValue = "";
+        
+        switch (fieldToEdit) {
+            case 1:
+                oldValue = bookmarkToEdit.getName();
+                break;
+            case 2:
+                oldValue = bookmarkToEdit.getDescription();
+                break;
+            case 3:
+                oldValue = bookmarkToEdit.getUrl();
+                break;
+            case 4:
+                oldValue = bookmarkToEdit.getAuthor();
+                break;
+            case 5:
+                oldValue = bookmarkToEdit.getIsbn();
+                break;
+        }
+                
+        io.print("Vanha arvo: \"" + oldValue + "\"");
         
         io.print("Anna uusi arvo: ");
         String newValue = io.nextLine();
