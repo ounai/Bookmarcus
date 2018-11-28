@@ -33,4 +33,5 @@ public interface DatabaseDAO<T> {
     public boolean delete(T t);
     public boolean add(T t);
     public boolean markAsRead(int id);
+    public boolean update(int id, T t);
 }

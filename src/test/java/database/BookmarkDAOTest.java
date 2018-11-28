@@ -114,6 +114,31 @@ public class BookmarkDAOTest {
         
         assertEquals(1, bio.findByAuthor("Writer Gurd").size());
     }
+    
+    /**
+     * Test of update method, of class BookmarkDAO
+     */
+    @Test
+    public void testUpdate() {
+        bio.add(bm);
+        
+        String newName = "New Name Best Name",
+                newDesc = "The description changed all of a sudden!",
+                newAuthor = "This Guy",
+                newISBN = "ISBN 2.0";
+        
+        bm.setName(newName);
+        bm.setDescription(newDesc);
+        bm.setAuthor(newAuthor);
+        bm.setIsbn(newISBN);
+        
+        bio.update(1, bm);
+        
+        assertEquals(bio.find(1).getName(), newName);
+        assertEquals(bio.find(1).getDescription(), newDesc);
+        assertEquals(bio.find(1).getAuthor(), newAuthor);
+        assertEquals(bio.find(1).getIsbn(), newISBN);
+    }
 
     @Test
     public void testAdd() {

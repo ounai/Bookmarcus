@@ -43,7 +43,7 @@ public class Bookmarcus {
     public void consoleApp() {
         WHILE:
         while(io.hasNextLine()) {
-            io.print("Valitsee komento:");
+            io.print("Valitse komento:");
             io.print("1) Listaa vinkit",
                     "2) Uusi vinkki",
                     "3) Poista vinkki",
@@ -51,7 +51,8 @@ public class Bookmarcus {
                     "5) Listaa luetut vinkit",
                     "6) Merkitse vinkki luetuksi",
                     "7) Etsi vinkkejä tekijän mukaan",
-                    "8) POISTU");
+                    "8) Muokkaa vinkkiä",
+                    "9) POISTU");
             io.print("--------------------");
 
             switch (io.nextLine().toLowerCase()) {
@@ -108,12 +109,87 @@ public class Bookmarcus {
                         io.print("Tekijällä \"" + author + "\" ei löytynyt yhtään vinkkiä.");
                     }
                     break;
-                case "8": case POISTU_COMMAND:
+                case "8":
+                    io.print("Syötä muokattavan vinkin numero: ");
+                    int idToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+                    Bookmark bookmarkToEdit = bdao.find(idToEdit);
+                    
+                    if (bookmarkToEdit != null) {
+                        edit(bookmarkToEdit);
+                    } else {
+                        io.print("! - Syötä oikea vinkin numero.");
+                    }
+                    
+                    break;
+                case "9": case POISTU_COMMAND:
                     break WHILE;
                 default:
                     io.print("Tuntematon komento");
             }
             io.print("");
+        }
+    }
+    
+    private void edit(Bookmark bookmarkToEdit) {
+        io.print(bookmarkToEdit.toString());
+        
+        io.print("Valitse muokattava kenttä:");
+
+        io.print("1) nimi");
+        io.print("2) kuvaus");
+        io.print("3) url");
+        if (bookmarkToEdit.hasAuthor()) {
+            io.print("4) tekijä");
+
+            // This is nested here because if the bookmark has an ISBN, it also has an author
+            if (bookmarkToEdit.hasISBN()) {
+                io.print("5) ISBN");
+            }
+        }
+
+        int fieldToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+        
+        io.print("Anna uusi arvo: ");
+        String newValue = io.nextLine();
+
+        switch (fieldToEdit) {
+            case 1:
+                bookmarkToEdit.setName(newValue);
+                break;
+            case 2:
+                bookmarkToEdit.setDescription(newValue);
+                break;
+            case 3:
+                bookmarkToEdit.setUrl(newValue);
+                break;
+            case 4:
+                if (bookmarkToEdit.hasAuthor()) {
+                    bookmarkToEdit.setAuthor(newValue);
+                    break;
+                } else {
+                    io.print("! - Syötä oikea kentän numero.");
+                    edit(bookmarkToEdit); // Maybe want to change this to a while loop
+                    return;
+                }
+            case 5:
+                if (bookmarkToEdit.hasISBN()) {
+                    bookmarkToEdit.setIsbn(newValue);
+                    break;
+                } else {
+                    io.print("! - Syötä oikea kentän numero.");
+                    edit(bookmarkToEdit); // Maybe want to change this to a while loop
+                    return;
+                }
+            default:
+                io.print("! - Syötä oikea kentän numero.");
+                edit(bookmarkToEdit); // Maybe want to change this to a while loop
+                return;
+        }
+        
+        if (bdao.update(bookmarkToEdit.getId(), bookmarkToEdit)) {
+            io.print("Muokkaaminen onnistui!");
+        } else {
+            io.print("! - Muokkaaminen epäonnistui.");
         }
     }
 

@@ -39,12 +39,20 @@ public class Bookmark {
     private int type; // 1 = Book, 2 = Article, 3 = Blogpost
     private boolean read;
 
-    // Book, Article, Blog type variables
+    // Book, Article, Blogpost type variables
     private String author;
 
     //Book type variables
     private String isbn;
 
+    public boolean hasAuthor() {
+        return type == TYPE_BOOK || type == TYPE_ARTICLE || type == TYPE_BLOGPOST;
+    }
+    
+    public boolean hasISBN() {
+        return type == TYPE_BOOK;
+    }
+    
     public int getType() {
         return type;
     }
@@ -85,8 +93,6 @@ public class Bookmark {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public String getName() {
         return name;

@@ -265,5 +265,33 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         }
         return true;
     }
+    
+    @Override
+    public boolean update(int id, Bookmark bookmark) {
+        if (find(id) == null) {
+            return false;
+        }
+        
+        String sql = "UPDATE Bookmark SET name = ?, description = ?, author = ?, isbn = ?, url = ?, type = ?, read = ? WHERE id = ?;";
+        
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, bookmark.getName());
+            pstmt.setString(2, bookmark.getDescription());
+            pstmt.setString(3, bookmark.getAuthor());
+            pstmt.setString(4, bookmark.getIsbn());
+            pstmt.setString(5, bookmark.getUrl());
+            pstmt.setInt(6, bookmark.getType());
+            pstmt.setInt(7, bookmark.getRead());
+            pstmt.setInt(8, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+        
+        return true;
+    }
 
 }
