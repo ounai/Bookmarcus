@@ -65,17 +65,12 @@ public class BookmarkTest {
         bm.setRead(Bookmark.READ_TRUE);
         assertEquals(true, bm.isRead());
     }
-        @Test
+    
+    @Test
     public void testGetRead() {
         assertEquals(0, bm.getRead());
         bm.setRead(Bookmark.READ_TRUE);
         assertEquals(1, bm.getRead());
     }
-    
-
-
-
-
-
     
 }

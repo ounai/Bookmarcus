@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -68,9 +69,40 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         }
         return bookmark;
     }
+    
+    @Override
+    public List<Bookmark> findByAuthor(String author) {
+        ArrayList<Bookmark> bookmarks = new ArrayList<>();
+        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE author = ?;";
+        
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, author);
+            ResultSet rs = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                Bookmark bookmark = new Bookmark();
+                bookmark.setId(rs.getInt("id"));
+                bookmark.setName(rs.getString("name"));
+                bookmark.setDescription(rs.getString("description"));
+                bookmark.setAuthor(rs.getString("author"));
+                bookmark.setIsbn(rs.getString("isbn"));
+                bookmark.setUrl(rs.getString("url"));
+                bookmark.setType(rs.getInt("type"));
+                bookmark.setRead(rs.getInt("read"));
+                bookmarks.add(bookmark);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return bookmarks;
+    }
 
     @Override
-    public ArrayList<Bookmark> getAll() {
+    public List<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark;";
 
@@ -99,7 +131,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     }
 
     @Override
-    public ArrayList<Bookmark> getAllUnRead() {
+    public List<Bookmark> getAllUnRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read=0;";
 
@@ -128,7 +160,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     }
 
     @Override
-    public ArrayList<Bookmark> getAllRead() {
+    public List<Bookmark> getAllRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read=1;";
 

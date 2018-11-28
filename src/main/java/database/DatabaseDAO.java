@@ -16,7 +16,7 @@
  */
 package database;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,9 +25,10 @@ import java.util.ArrayList;
  */
 public interface DatabaseDAO<T> {
     public T find(int id);
-    public ArrayList<Bookmark> getAll();
-    public ArrayList<Bookmark> getAllRead();
-    public ArrayList<Bookmark> getAllUnRead();
+    public List<T> findByAuthor(String author);
+    public List<T> getAll();
+    public List<T> getAllRead();
+    public List<T> getAllUnRead();
     public boolean delete(int id);
     public boolean delete(T t);
     public boolean add(T t);

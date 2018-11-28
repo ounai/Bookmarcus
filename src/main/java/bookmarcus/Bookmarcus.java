@@ -20,6 +20,7 @@ import database.Bookmark;
 import database.DatabaseDAO;
 import io.IO;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -43,12 +44,19 @@ public class Bookmarcus {
         WHILE:
         while(io.hasNextLine()) {
             io.print("Valitsee komento:");
-            io.print("1) Listaa vinkit", "2) Uusi vinkki", "3) Poista vinkki", "4) Listaa lukemattomat vinkit", "5) Listaa luetut vinkit", "6) Merkitse vinkki luetuksi", "7) POISTU");
+            io.print("1) Listaa vinkit",
+                    "2) Uusi vinkki",
+                    "3) Poista vinkki",
+                    "4) Listaa lukemattomat vinkit",
+                    "5) Listaa luetut vinkit",
+                    "6) Merkitse vinkki luetuksi",
+                    "7) Etsi vinkkejä tekijän mukaan",
+                    "8) POISTU");
             io.print("--------------------");
 
             switch (io.nextLine().toLowerCase()) {
                 case "1":
-                    ArrayList<Bookmark> bookmarks = bdao.getAll();
+                    List<Bookmark> bookmarks = bdao.getAll();
                     for (Bookmark bm : bookmarks) {
                         io.print(bm.toString());
                     }
@@ -67,13 +75,13 @@ public class Bookmarcus {
                     }
                     break;
                 case "4":
-                    ArrayList<Bookmark> unRead = bdao.getAllUnRead();
+                    List<Bookmark> unRead = bdao.getAllUnRead();
                     for (Bookmark bm : unRead) {
                         io.print(bm.toString());
                     }
                     break;
                 case "5":
-                    ArrayList<Bookmark> read = bdao.getAllRead();
+                    List<Bookmark> read = bdao.getAllRead();
                     for (Bookmark bm : read) {
                         io.print(bm.toString());
                     }
@@ -88,7 +96,19 @@ public class Bookmarcus {
                         io.print("! - Syötä oikea vinkin numero.");
                     }
                     break;
-                case "7": case POISTU_COMMAND:
+                case "7":
+                    io.print("Syötä haettavan tekijän nimi: ");
+                    String author = io.nextLine();
+                    List<Bookmark> resultBookmarks = bdao.findByAuthor(author);
+                    if (!resultBookmarks.isEmpty()) {
+                        for (Bookmark bm : resultBookmarks) {
+                            io.print(bm.toString());
+                        }
+                    } else {
+                        io.print("Tekijällä \"" + author + "\" ei löytynyt yhtään vinkkiä.");
+                    }
+                    break;
+                case "8": case POISTU_COMMAND:
                     break WHILE;
                 default:
                     io.print("Tuntematon komento");

@@ -24,6 +24,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -101,12 +102,24 @@ public class BookmarkDAOTest {
         bio.add(bm);
         assertEquals(bio.find(1).getName(), bm.getName());
     }
+    
+    /**
+     * Test of findByAuthor method, of class BookmarkDAO
+     */
+    @Test
+    public void testFindByAuthor() {
+        assertEquals(0, bio.findByAuthor("Writer Gurd").size());
+        
+        bio.add(bm);
+        
+        assertEquals(1, bio.findByAuthor("Writer Gurd").size());
+    }
 
     @Test
     public void testAdd() {
         bio.add(bm);
         bio.add(bm2);
-        ArrayList<Bookmark> bms = bio.getAll();
+        List<Bookmark> bms = bio.getAll();
         assertEquals(2, bms.size());
         assertEquals(bio.find(1).getName(), bm.getName());
     }
@@ -120,7 +133,7 @@ public class BookmarkDAOTest {
         bio.add(bm);
         bio.add(bm2);
         bio.add(bm3);
-        ArrayList<Bookmark> bms = bio.getAll();
+        List<Bookmark> bms = bio.getAll();
         assertEquals(3, bms.size());
 
     }
