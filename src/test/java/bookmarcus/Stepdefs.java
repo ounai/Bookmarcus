@@ -33,6 +33,11 @@ public class Stepdefs {
         inputFeed = inputFeed.thenReturn(type);
     }
 
+    @When("^the id \"([^\"]*)\" is entered$")
+    public void the_id_is_entered(String id) throws Throwable {
+        inputFeed = inputFeed.thenReturn(id);
+    }
+
     @When("^name \"([^\"]*)\", author \"([^\"]*)\" and ISBN \"([^\"]*)\" are entered$")
     public void name_author_and_ISBN_are_entered(String name, String author, String isbn) throws Throwable {
         inputFeed = inputFeed.thenReturn(name, author, isbn);
@@ -60,6 +65,58 @@ public class Stepdefs {
             fail(e.getMessage());
         }
         verify(mockDAO, times(1)).add(any(Bookmark.class));
+    }
+
+    @Then("^^bookmarks are listed$")
+    public void bookmarks_are_listed() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).getAll();
+    }
+
+    @Then("^unread bookmarks are listed$")
+    public void unread_bookmarks_are_listed() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).getAllUnRead();
+    }
+
+    @Then("^read bookmarks are listed$")
+    public void read_bookmarks_are_listed() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).getAllRead();
+    }
+
+    @Then("^a bookmark is deleted")
+    public void a_bookmark_is_deleted() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).delete(anyInt());
     }
 
 }
