@@ -52,7 +52,8 @@ public class Bookmarcus {
                     "6) Merkitse vinkki luetuksi",
                     "7) Etsi vinkkejä tekijän mukaan",
                     "8) Muokkaa vinkkiä",
-                    "9) POISTU");
+                    "9) Lisää vinkkiin muistiinpano",
+                    "0) POISTU");
             io.print("--------------------");
 
             switch (io.nextLine().toLowerCase()) {
@@ -121,12 +122,40 @@ public class Bookmarcus {
                     }
                     
                     break;
-                case "9": case POISTU_COMMAND:
+                case "9":
+                    io.print("Syötä vinkin numero: ");
+                    int idToAddNote = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+                    Bookmark bookmarkToAddNote = bdao.find(idToAddNote);
+                    
+                    if (bookmarkToAddNote != null) {
+                        addNote(bookmarkToAddNote);
+                    } else {
+                        io.print("! - Syötä oikea vinkin numero.");
+                    }
+                    
+                    break;
+                case "0": case POISTU_COMMAND:
                     break WHILE;
                 default:
                     io.print("Tuntematon komento");
             }
             io.print("");
+        }
+    }
+    
+    private void addNote(Bookmark bookmarkToAddNote) {
+        io.print(bookmarkToAddNote.toString());
+        
+        io.print("Syötä lisättävä muistiinpano: ");
+        
+        String note = io.nextLine();
+        
+        bookmarkToAddNote.setDescription(bookmarkToAddNote.getDescription() + ", " + note);
+        
+        if (bdao.update(bookmarkToAddNote.getId(), bookmarkToAddNote)) {
+            io.print("Muitiinpanon lisääminen onnistui!");
+        } else {
+            io.print("! - Muistiinpanon lisääminen epäonnistui.");
         }
     }
     
