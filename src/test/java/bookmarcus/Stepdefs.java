@@ -106,7 +106,7 @@ public class Stepdefs {
         verify(mockDAO, times(1)).getAllRead();
     }
 
-    @Then("^a bookmark is deleted")
+    @Then("^a bookmark is deleted$")
     public void a_bookmark_is_deleted() throws Throwable {
         inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
         when(mockIO.hasNextLine()).thenReturn(true);
@@ -117,6 +117,19 @@ public class Stepdefs {
             fail(e.getMessage());
         }
         verify(mockDAO, times(1)).delete(anyInt());
+    }
+
+    @Then("^bookmark is marked as read$")
+    public void bookmark_is_marked_as_read() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).markAsRead(anyInt());
     }
 
 }
