@@ -49,7 +49,7 @@ public class Bookmarcus {
                     "3) Poista vinkki",
                     "4) Listaa lukemattomat vinkit",
                     "5) Listaa luetut vinkit",
-                    "6) Merkitse vinkki luetuksi",
+                    "6) Merkitse vinkki luetuksi tai katsotuksi",
                     "7) Etsi vinkkejä tekijän mukaan",
                     "8) Muokkaa vinkkiä",
                     "9) Lisää vinkkiin muistiinpano",
@@ -89,11 +89,11 @@ public class Bookmarcus {
                     }
                     break;
                 case "6":
-                    io.print("Syötä luetuksi merkattavan vinkin numero: ");
+                    io.print("Syötä luetuksi tai katsotuksi merkattavan vinkin numero: ");
                     int readId = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
                     boolean readSuccess = bdao.markAsRead(readId);
                     if(readSuccess) {
-                        io.print("Vinkki on merkitty luetuksi.");
+                        io.print("Vinkki on merkitty luetuksi/katsotuksi.");
                     } else {
                         io.print("! - Syötä oikea vinkin numero.");
                     }
@@ -245,7 +245,7 @@ public class Bookmarcus {
 
     private void add() {
         Bookmark bookmark = new Bookmark();
-        io.print("Anna vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja");
+        io.print("Anna vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja, video");
         String type = io.nextLine();
         switch (type.toLowerCase()) {
             case "artikkeli":
@@ -274,6 +274,15 @@ public class Bookmarcus {
                 bookmark.setAuthor(io.nextLine());
                 io.print("Syötä kirjan ISBN-tunnus:");
                 bookmark.setIsbn(io.nextLine());
+                break;
+            case "video":
+                bookmark.setType(Bookmark.TYPE_VIDEO);
+                io.print("Syötä videon nimi:");
+                bookmark.setName(io.nextLine());
+                io.print("Syötä videon tekijä:");
+                bookmark.setName(io.nextLine());
+                io.print("Syötä videon osoite:");
+                bookmark.setUrl(io.nextLine());
                 break;
             default:
                 io.print("! - Tuntematon tyyppi");

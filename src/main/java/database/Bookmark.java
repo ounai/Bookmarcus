@@ -29,6 +29,8 @@ public class Bookmark {
     public final static int TYPE_BOOK = 1;
     public final static int TYPE_ARTICLE = 2;
     public final static int TYPE_BLOGPOST = 3;
+    public final static int TYPE_VIDEO = 4;
+
     public final static int READ_TRUE = 1;
     public final static int READ_FALSE = 0;
 
@@ -46,7 +48,7 @@ public class Bookmark {
     private String isbn;
 
     public boolean hasAuthor() {
-        return type == TYPE_BOOK || type == TYPE_ARTICLE || type == TYPE_BLOGPOST;
+        return type == TYPE_BOOK || type == TYPE_ARTICLE || type == TYPE_BLOGPOST || type == TYPE_VIDEO;
     }
     
     public boolean hasISBN() {
@@ -139,6 +141,8 @@ public class Bookmark {
                 return articleToString();
             case TYPE_BLOGPOST:
                 return blogpostToString();
+            case TYPE_VIDEO:
+                return videoToString();
             default:
                 return "Bookmark type not defined";
         }
@@ -158,5 +162,10 @@ public class Bookmark {
     private String blogpostToString() {
         return this.id + " BLOGPOST " + this.name + " " + this.author + " " + this.description + " " + this.url
                 + " "+(this.isRead() ? "(luettu)" : "(lukematon)");
+    }
+
+    private String videoToString() {
+        return this.id + " VIDEO " + this.name + " " + this.author + " " + this.description + " " + this.url
+                + " " + (this.isRead() ? "(katsottu)" : "(katsomaton)");
     }
 }
