@@ -26,10 +26,15 @@ Definition of Done pitää määritellä Cucumberin avulla, joten kyseinen työk
 ## BookmarkIO
 Kaikki tietokantakyselyt tämän kautta. Tällä hetkellä implementoituina metodeina ovat: 
    - Find(id) palauttaa Bookmark:in jos id:llä löytyy, muuten null
+   - Find(author) palauttaa Bookmarkit ArrayListina, joissa author täsmää
    - getAll()  palauttaa kaikki Bookmarkit ArrayListina
+   - getAllUnRead()  palauttaa kaikki lukemattomat Bookmarkit ArrayListina
+   - getAllRead()  palauttaa kaikki luetut Bookmarkit ArrayListina
    - add(Bookmark)  lisää uuden Bookmarkin tietokantaan. Palauttaa true jos onnistui, muuten false
-   - delete(id)  ei vielä implementoitu
+   - delete(id) poistaa Bookmarkin tietokannasta. Palauttaa true jos onnistui, muuten false
    - delete(Bookmark)  ei vielä implementoitu
+   - markAsRead(id) merkitsee Bookmarkin luetuksi. Palauttaa true jos onnistui, muuten false
+   - update(id, bookmark) päivitää Bookmarkin tiedot parametrina annetun Bookmarkin tietojen perusteella. 
 
 ## Tyyppi
 Tietokannassa on nyt vain useita eri sarakkeita. Eri tyypit käyttävät niistä vain osaa. Jos jokin on null,
