@@ -11,3 +11,8 @@ Feature: As a user I can view bookmarks
     Scenario: Listing all read bookmarks
         Given that the command "5" is entered
         Then  read bookmarks are listed
+
+    Scenario: Listing bookmarks by author
+        Given that the command "7" is entered
+        When  the id "Matti" is entered
+        Then  bookmarks with author are listed
