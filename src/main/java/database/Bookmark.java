@@ -26,10 +26,12 @@ public class Bookmark {
     private final static int MISSING_ID_PLACEHOLDER = -1;
     private final static String EMPTY_DESCRIPTION = "";
 
-    public final static int TYPE_BOOK = 1;
-    public final static int TYPE_ARTICLE = 2;
-    public final static int TYPE_BLOGPOST = 3;
-    public final static int TYPE_VIDEO = 4;
+    public enum contentType {
+        BOOK,
+        ARTICLE,
+        BLOGPOST,
+        VIDEO
+    }
 
     public final static int READ_TRUE = 1;
     public final static int READ_FALSE = 0;
@@ -38,7 +40,7 @@ public class Bookmark {
     private int id;
     private String description;
     private String url;
-    private int type; // 1 = Book, 2 = Article, 3 = Blogpost
+    private contentType type; // 1 = Book, 2 = Article, 3 = Blogpost
     private boolean read;
 
     // Book, Article, Blogpost type variables
@@ -48,19 +50,19 @@ public class Bookmark {
     private String isbn;
 
     public boolean hasAuthor() {
-        return type == TYPE_BOOK || type == TYPE_ARTICLE || type == TYPE_BLOGPOST || type == TYPE_VIDEO;
+        return type == contentType.BOOK || type == contentType.ARTICLE || type == contentType.BLOGPOST || type == contentType.VIDEO;
     }
-    
+
     public boolean hasISBN() {
-        return type == TYPE_BOOK;
+        return contentType.BOOK.equals(type);
     }
-    
+
     public int getType() {
-        return type;
+        return type.ordinal();
     }
 
     public void setType(int type) {
-        this.type = type;
+        this.type = contentType.values()[type];
     }
 
     public String getAuthor() {
@@ -134,14 +136,14 @@ public class Bookmark {
 
     @Override
     public String toString() {
-        switch (this.type) {
-            case TYPE_BOOK:
+        switch (type) {
+            case BOOK:
                 return bookToString();
-            case TYPE_ARTICLE:
+            case ARTICLE:
                 return articleToString();
-            case TYPE_BLOGPOST:
+            case BLOGPOST:
                 return blogpostToString();
-            case TYPE_VIDEO:
+            case VIDEO:
                 return videoToString();
             default:
                 return "Bookmark type not defined";
