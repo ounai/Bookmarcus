@@ -47,3 +47,5 @@ laittaa jälkikäteen. Kaikkia mahdollisia konstruktoreita olisi liikaa, joten p
 settereillä. Tein tällaisen arkkitehtuuriratkaisun ajan säästämiseksi, oletan ettei tämä ohjelma kasva kovin suureksi.
 
 Bookmarkin tulostuksen hoitaa toString metodi, joka tulostaa kullekin tyypille oleelliset kentät. Jos tyyppiä ei ole valittu, tulostuu "Bookmark type not defined".
+
+
