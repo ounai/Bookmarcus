@@ -5,7 +5,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import database.Bookmark;
+import database.bookmark.Bookmark;
 import database.DatabaseDAO;
 import io.IO;
 

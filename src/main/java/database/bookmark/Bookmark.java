@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
  */
-package database;
+package database.bookmark;
 
 /**
  * Database entry container for Bookmark table

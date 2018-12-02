@@ -16,6 +16,7 @@
  */
 package database;
 
+import database.bookmark.Bookmark;
 import database.BookmarkDAO;
 import static org.junit.Assert.assertEquals;
 import java.io.File;

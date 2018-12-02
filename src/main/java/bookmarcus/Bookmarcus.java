@@ -16,7 +16,7 @@
  */
 package bookmarcus;
 
-import database.Bookmark;
+import database.bookmark.Bookmark;
 import database.DatabaseDAO;
 import io.IO;
 import java.util.ArrayList;
