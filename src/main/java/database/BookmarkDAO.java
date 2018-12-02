@@ -17,6 +17,7 @@
 package database;
 
 import database.bookmark.Bookmark;
+import database.bookmark.BookmarkFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -54,14 +55,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                bookmark = new Bookmark();
+                bookmark = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
                 bookmark.setId(rs.getInt("id"));
                 bookmark.setName(rs.getString("name"));
                 bookmark.setDescription(rs.getString("description"));
                 bookmark.setAuthor(rs.getString("author"));
                 bookmark.setIsbn(rs.getString("isbn"));
                 bookmark.setUrl(rs.getString("url"));
-                bookmark.setType(rs.getInt("type"));
                 bookmark.setRead(rs.getInt("read"));
             }
         } catch (SQLException e) {
@@ -84,14 +84,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             
             // loop through the result set
             while (rs.next()) {
-                Bookmark bookmark = new Bookmark();
+                Bookmark bookmark = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
                 bookmark.setId(rs.getInt("id"));
                 bookmark.setName(rs.getString("name"));
                 bookmark.setDescription(rs.getString("description"));
                 bookmark.setAuthor(rs.getString("author"));
                 bookmark.setIsbn(rs.getString("isbn"));
                 bookmark.setUrl(rs.getString("url"));
-                bookmark.setType(rs.getInt("type"));
                 bookmark.setRead(rs.getInt("read"));
                 bookmarks.add(bookmark);
             }
@@ -113,14 +112,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = new Bookmark();
+                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
                 bm.setId(rs.getInt("id"));
                 bm.setName(rs.getString("name"));
                 bm.setDescription(rs.getString("description"));
                 bm.setAuthor(rs.getString("author"));
                 bm.setIsbn(rs.getString("isbn"));
                 bm.setUrl(rs.getString("url"));
-                bm.setType(rs.getInt("type"));
                 bm.setRead(rs.getInt("read"));
                 bookmarks.add(bm);
 
@@ -142,14 +140,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = new Bookmark();
+                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
                 bm.setId(rs.getInt("id"));
                 bm.setName(rs.getString("name"));
                 bm.setDescription(rs.getString("description"));
                 bm.setAuthor(rs.getString("author"));
                 bm.setIsbn(rs.getString("isbn"));
                 bm.setUrl(rs.getString("url"));
-                bm.setType(rs.getInt("type"));
                 bm.setRead(rs.getInt("read"));
                 bookmarks.add(bm);
 
@@ -171,14 +168,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = new Bookmark();
+                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
                 bm.setId(rs.getInt("id"));
                 bm.setName(rs.getString("name"));
                 bm.setDescription(rs.getString("description"));
                 bm.setAuthor(rs.getString("author"));
                 bm.setIsbn(rs.getString("isbn"));
                 bm.setUrl(rs.getString("url"));
-                bm.setType(rs.getInt("type"));
                 bm.setRead(rs.getInt("read"));
                 bookmarks.add(bm);
 

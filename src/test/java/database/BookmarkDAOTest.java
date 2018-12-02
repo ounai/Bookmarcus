@@ -18,6 +18,8 @@ package database;
 
 import database.bookmark.Bookmark;
 import database.BookmarkDAO;
+import database.bookmark.BookmarkFactory;
+import database.bookmark.Type;
 import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.sql.Connection;
@@ -69,19 +71,17 @@ public class BookmarkDAOTest {
 
     private void setUpLocalVariables() {
         bio = new BookmarkDAO(testdbPath);
-        bm = new Bookmark();
-        bm.setType(Bookmark.TYPE_BOOK);
+        bm = BookmarkFactory.newBookmarkByType(Type.BOOK);
         bm.setAuthor("Writer Gurd");
         bm.setName("How NOT to test code");
         bm.setDescription("This is a nice book for me");
         bm.setIsbn("1234-6789");
-        bm2 = new Bookmark();
-        bm2.setType(Bookmark.TYPE_BLOGPOST);
+        bm2 = BookmarkFactory.newBookmarkByType(Type.BLOGPOST);
         bm2.setAuthor("Markus the blogger");
         bm2.setDescription("This was a funny blogpost");
         bm2.setName("How NOT to write too long methods");
         bm2.setUrl("localhost:8080");
-        bm3 = new Bookmark();
+        bm3 = BookmarkFactory.newBookmarkByType(Type.ARTICLE);
         bm3.setType(Bookmark.TYPE_ARTICLE);
         bm3.setName("Git gud: how to test");
         bm3.setAuthor("Professor X");
@@ -182,7 +182,7 @@ public class BookmarkDAOTest {
     @Test
     public void testConnectionWrongDBAddress() {
         BookmarkDAO b = new BookmarkDAO("wrong");
-        assertEquals(b.add(new Bookmark()), false);
+        assertEquals(b.add(bm), false);
 
     }
 

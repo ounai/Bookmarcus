@@ -18,6 +18,7 @@ package bookmarcus;
 
 import database.bookmark.Bookmark;
 import database.DatabaseDAO;
+import database.bookmark.BookmarkFactory;
 import io.IO;
 import java.util.ArrayList;
 import java.util.List;
@@ -244,49 +245,25 @@ public class Bookmarcus {
     }
 
     private void add() {
-        Bookmark bookmark = new Bookmark();
-        io.print("Anna vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja, video");
-        String type = io.nextLine();
-        switch (type.toLowerCase()) {
-            case "artikkeli":
-                bookmark.setType(Bookmark.TYPE_ARTICLE);
-                io.print("Syötä artikkelin nimi:");
-                bookmark.setName(io.nextLine());
-                io.print("Syötä artikkelin kirjoittaja:");
-                bookmark.setAuthor(io.nextLine());
-                io.print("Syötä artikkelin osoite:");
-                bookmark.setUrl(io.nextLine());
-                break;
-            case "blogikirjoitus":
-                bookmark.setType(Bookmark.TYPE_BLOGPOST);
-                io.print("Syötä blogikirjoituksen otsikko:");
-                bookmark.setName(io.nextLine());
-                io.print("Syötä blogikirjoituksen kirjoittaja:");
-                bookmark.setAuthor(io.nextLine());
-                io.print("Syötä blogikirjoituksen osoite:");
-                bookmark.setUrl(io.nextLine());
-                break;
-            case "kirja":
-                bookmark.setType(Bookmark.TYPE_BOOK);
-                io.print("Syötä kirjan nimi:");
-                bookmark.setName(io.nextLine());
-                io.print("Syötä kirjailijan nimi:");
-                bookmark.setAuthor(io.nextLine());
-                io.print("Syötä kirjan ISBN-tunnus:");
-                bookmark.setIsbn(io.nextLine());
-                break;
-            case "video":
-                bookmark.setType(Bookmark.TYPE_VIDEO);
-                io.print("Syötä videon nimi:");
-                bookmark.setName(io.nextLine());
-                io.print("Syötä videon tekijä:");
-                bookmark.setName(io.nextLine());
-                io.print("Syötä videon osoite:");
-                bookmark.setUrl(io.nextLine());
-                break;
-            default:
-                io.print("! - Tuntematon tyyppi");
-                return;
+        Bookmark bookmark;
+        io.print("Syötä vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja, video");
+        try {
+            bookmark = BookmarkFactory.newBookmarkByType(io.nextLine());
+        } catch (IllegalArgumentException e) {
+            io.print("! - Tuntematon tyyppi");
+            return;
+        }
+        io.print("Syötä vinkille nimi:");
+        bookmark.setName(io.nextLine());
+        io.print("Syötä vinkin tekijän nimi:");
+        bookmark.setAuthor(io.nextLine());
+        if (bookmark.hasURL()) {
+            io.print("Syötä vinkin osoite:");
+            bookmark.setUrl(io.nextLine());
+        }
+        if (bookmark.hasISBN()) {
+            io.print("Syötä vinkin ISBN-tunnus:");
+            bookmark.setIsbn(io.nextLine());
         }
         io.print("Lisää vinkkiä koskevat muistiinpanot:");
         bookmark.setDescription(io.nextLine());

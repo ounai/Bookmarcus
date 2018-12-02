@@ -6,6 +6,8 @@
 package database;
 
 import database.bookmark.Bookmark;
+import database.bookmark.BookmarkFactory;
+import database.bookmark.Type;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author daniel
+ * @author WebCoodi
  */
 
 
@@ -36,8 +38,7 @@ public class BookmarkTest {
     
     @Before
     public void setUp() {
-        bm = new Bookmark();
-        bm.setId(1);
+        bm = BookmarkFactory.newBookmarkByType(Type.BOOK);
         bm.setAuthor("Matti");
         bm.setDescription("Selostus");
         bm.setIsbn("12345");

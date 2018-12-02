@@ -55,6 +55,10 @@ public class Bookmark {
         return type == TYPE_BOOK;
     }
     
+    public boolean hasURL() {
+        return type != TYPE_BOOK;
+    }
+    
     public int getType() {
         return type;
     }
@@ -87,7 +91,7 @@ public class Bookmark {
         this.url = url;
     }
 
-    public Bookmark() {
+    protected Bookmark() {
         this.id = MISSING_ID_PLACEHOLDER;
         this.read = false;
     }
