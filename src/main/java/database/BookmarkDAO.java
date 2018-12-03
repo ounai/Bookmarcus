@@ -8,7 +8,7 @@
  *
  * Bookmarcus is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -55,14 +55,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                bookmark = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
-                bookmark.setId(rs.getInt("id"));
-                bookmark.setName(rs.getString("name"));
-                bookmark.setDescription(rs.getString("description"));
-                bookmark.setAuthor(rs.getString("author"));
-                bookmark.setIsbn(rs.getString("isbn"));
-                bookmark.setUrl(rs.getString("url"));
-                bookmark.setRead(rs.getInt("read"));
+                bookmark = collectNextBookmark(rs);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -84,15 +77,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             
             // loop through the result set
             while (rs.next()) {
-                Bookmark bookmark = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
-                bookmark.setId(rs.getInt("id"));
-                bookmark.setName(rs.getString("name"));
-                bookmark.setDescription(rs.getString("description"));
-                bookmark.setAuthor(rs.getString("author"));
-                bookmark.setIsbn(rs.getString("isbn"));
-                bookmark.setUrl(rs.getString("url"));
-                bookmark.setRead(rs.getInt("read"));
-                bookmarks.add(bookmark);
+                bookmarks.add(collectNextBookmark(rs));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -112,15 +97,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
-                bm.setId(rs.getInt("id"));
-                bm.setName(rs.getString("name"));
-                bm.setDescription(rs.getString("description"));
-                bm.setAuthor(rs.getString("author"));
-                bm.setIsbn(rs.getString("isbn"));
-                bm.setUrl(rs.getString("url"));
-                bm.setRead(rs.getInt("read"));
-                bookmarks.add(bm);
+                bookmarks.add(collectNextBookmark(rs));
 
             }
         } catch (SQLException e) {
@@ -140,16 +117,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
-                bm.setId(rs.getInt("id"));
-                bm.setName(rs.getString("name"));
-                bm.setDescription(rs.getString("description"));
-                bm.setAuthor(rs.getString("author"));
-                bm.setIsbn(rs.getString("isbn"));
-                bm.setUrl(rs.getString("url"));
-                bm.setRead(rs.getInt("read"));
-                bookmarks.add(bm);
-
+                bookmarks.add(collectNextBookmark(rs));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -168,21 +136,30 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
             // loop through the result set
             while (rs.next()) {
-                Bookmark bm = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
-                bm.setId(rs.getInt("id"));
-                bm.setName(rs.getString("name"));
-                bm.setDescription(rs.getString("description"));
-                bm.setAuthor(rs.getString("author"));
-                bm.setIsbn(rs.getString("isbn"));
-                bm.setUrl(rs.getString("url"));
-                bm.setRead(rs.getInt("read"));
-                bookmarks.add(bm);
-
+                bookmarks.add(collectNextBookmark(rs));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return bookmarks;
+    }
+    
+    private Bookmark collectNextBookmark(ResultSet rs) throws SQLException {
+        Bookmark bookmark = BookmarkFactory.newBookmarkByType(rs.getInt("type"));
+        bookmark.setID(rs.getInt("id"));
+        bookmark.setName(rs.getString("name"));
+        bookmark.setDescription(rs.getString("description"));
+        if (bookmark.hasAuthor()) {
+            bookmark.setAuthor(rs.getString("author"));
+        }
+        if (bookmark.hasISBN()) {
+            bookmark.setISBN(rs.getString("isbn"));
+        }
+        if (bookmark.hasURL()) {
+            bookmark.setURL(rs.getString("url"));
+        }
+        bookmark.setRead(rs.getInt("read"));
+        return bookmark;
     }
 
     @Override
@@ -251,9 +228,9 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             pstmt.setString(1, bookmark.getName());
             pstmt.setString(2, bookmark.getDescription());
             pstmt.setString(3, bookmark.getAuthor());
-            pstmt.setString(4, bookmark.getIsbn());
-            pstmt.setString(5, bookmark.getUrl());
-            pstmt.setInt(6, bookmark.getType());
+            pstmt.setString(4, bookmark.getISBN());
+            pstmt.setString(5, bookmark.getURL());
+            pstmt.setInt(6, bookmark.getType().toInt());
             pstmt.setInt(7, bookmark.getRead());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -277,9 +254,9 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             pstmt.setString(1, bookmark.getName());
             pstmt.setString(2, bookmark.getDescription());
             pstmt.setString(3, bookmark.getAuthor());
-            pstmt.setString(4, bookmark.getIsbn());
-            pstmt.setString(5, bookmark.getUrl());
-            pstmt.setInt(6, bookmark.getType());
+            pstmt.setString(4, bookmark.getISBN());
+            pstmt.setString(5, bookmark.getURL());
+            pstmt.setInt(6, bookmark.getType().toInt());
             pstmt.setInt(7, bookmark.getRead());
             pstmt.setInt(8, id);
             pstmt.executeUpdate();

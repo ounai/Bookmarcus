@@ -8,7 +8,7 @@
  *
  * Bookmarcus is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -153,7 +153,7 @@ public class Bookmarcus {
         
         bookmarkToAddNote.setDescription(bookmarkToAddNote.getDescription() + ", " + note);
         
-        if (bdao.update(bookmarkToAddNote.getId(), bookmarkToAddNote)) {
+        if (bdao.update(bookmarkToAddNote.getID(), bookmarkToAddNote)) {
             io.print("Muitiinpanon lisääminen onnistui!");
         } else {
             io.print("! - Muistiinpanon lisääminen epäonnistui.");
@@ -188,13 +188,13 @@ public class Bookmarcus {
                 oldValue = bookmarkToEdit.getDescription();
                 break;
             case 3:
-                oldValue = bookmarkToEdit.getUrl();
+                oldValue = bookmarkToEdit.getURL();
                 break;
             case 4:
                 oldValue = bookmarkToEdit.getAuthor();
                 break;
             case 5:
-                oldValue = bookmarkToEdit.getIsbn();
+                oldValue = bookmarkToEdit.getISBN();
                 break;
         }
                 
@@ -211,7 +211,7 @@ public class Bookmarcus {
                 bookmarkToEdit.setDescription(newValue);
                 break;
             case 3:
-                bookmarkToEdit.setUrl(newValue);
+                bookmarkToEdit.setURL(newValue);
                 break;
             case 4:
                 if (bookmarkToEdit.hasAuthor()) {
@@ -224,7 +224,7 @@ public class Bookmarcus {
                 }
             case 5:
                 if (bookmarkToEdit.hasISBN()) {
-                    bookmarkToEdit.setIsbn(newValue);
+                    bookmarkToEdit.setISBN(newValue);
                     break;
                 } else {
                     io.print("! - Syötä oikea kentän numero.");
@@ -237,7 +237,7 @@ public class Bookmarcus {
                 return;
         }
         
-        if (bdao.update(bookmarkToEdit.getId(), bookmarkToEdit)) {
+        if (bdao.update(bookmarkToEdit.getID(), bookmarkToEdit)) {
             io.print("Muokkaaminen onnistui!");
         } else {
             io.print("! - Muokkaaminen epäonnistui.");
@@ -259,11 +259,11 @@ public class Bookmarcus {
         bookmark.setAuthor(io.nextLine());
         if (bookmark.hasURL()) {
             io.print("Syötä vinkin osoite:");
-            bookmark.setUrl(io.nextLine());
+            bookmark.setURL(io.nextLine());
         }
         if (bookmark.hasISBN()) {
             io.print("Syötä vinkin ISBN-tunnus:");
-            bookmark.setIsbn(io.nextLine());
+            bookmark.setISBN(io.nextLine());
         }
         io.print("Lisää vinkkiä koskevat muistiinpanot:");
         bookmark.setDescription(io.nextLine());

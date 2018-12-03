@@ -41,9 +41,13 @@ public class BookmarkFactory {
     }
     
     public static Bookmark newBookmarkByType(Type type) {
-        Bookmark bm = new Bookmark();
-        bm.setType(type.toInt());
-        return bm;
+        switch (type) {
+            case ARTICLE:  return new Article();
+            case BLOGPOST: return new Blogpost();
+            case BOOK:     return new Book();
+            case VIDEO:    return new Video();
+            default:       return null;
+        }
     }
     
 }

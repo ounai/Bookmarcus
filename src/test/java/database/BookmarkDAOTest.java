@@ -8,7 +8,7 @@
  *
  * Bookmarcus is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -75,14 +75,13 @@ public class BookmarkDAOTest {
         bm.setAuthor("Writer Gurd");
         bm.setName("How NOT to test code");
         bm.setDescription("This is a nice book for me");
-        bm.setIsbn("1234-6789");
+        bm.setISBN("1234-6789");
         bm2 = BookmarkFactory.newBookmarkByType(Type.BLOGPOST);
         bm2.setAuthor("Markus the blogger");
         bm2.setDescription("This was a funny blogpost");
         bm2.setName("How NOT to write too long methods");
-        bm2.setUrl("localhost:8080");
+        bm2.setURL("localhost:8080");
         bm3 = BookmarkFactory.newBookmarkByType(Type.ARTICLE);
-        bm3.setType(Bookmark.TYPE_ARTICLE);
         bm3.setName("Git gud: how to test");
         bm3.setAuthor("Professor X");
         bm3.setDescription("I learned a lot from this");
@@ -131,14 +130,14 @@ public class BookmarkDAOTest {
         bm.setName(newName);
         bm.setDescription(newDesc);
         bm.setAuthor(newAuthor);
-        bm.setIsbn(newISBN);
+        bm.setISBN(newISBN);
         
         bio.update(1, bm);
         
         assertEquals(bio.find(1).getName(), newName);
         assertEquals(bio.find(1).getDescription(), newDesc);
         assertEquals(bio.find(1).getAuthor(), newAuthor);
-        assertEquals(bio.find(1).getIsbn(), newISBN);
+        assertEquals(bio.find(1).getISBN(), newISBN);
     }
 
     @Test
