@@ -1,1 +1,0 @@
-INSERT INTO bookmark (name, description, author, isbn, url, type, read) VALUES("TestiKirja", "Hyvä kirja!", "Matti","123-345", "esim.url", 1, 0);
