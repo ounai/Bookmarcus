@@ -184,5 +184,26 @@ public class BookmarkDAOTest {
         assertEquals(b.add(bm), false);
 
     }
+    
+    @Test
+    public void testFindNullIfNotExists() {
+        assertEquals(null,bio.find(1));
+    }
+    
+    @Test
+    public void markAsRead() {
+        bio.add(bm);
+        assertEquals(1, bio.getAllUnRead().size());
+        bio.markAsRead(1);
+        assertEquals(1, bio.getAllRead().size());
+        assertEquals(0, bio.getAllUnRead().size());
+        
+    }
+    @Test
+    public void markAsReadFalseIfNotFound() {
+        assertEquals(false, bio.markAsRead(1));
+    }
+    
+
 
 }
