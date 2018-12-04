@@ -92,10 +92,7 @@ public class ISBN {
 
             multiplier--;
         }
-        if (sum % 11 != 0) {
-            return true;
-        }
-        return false;
+        return sum % 11 != 0;
     }
 
 }
