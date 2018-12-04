@@ -204,6 +204,10 @@ public class BookmarkDAOTest {
         assertEquals(false, bio.markAsRead(1));
     }
     
-
+    @Test
+    public void noAddingIfNotName() {
+        Bookmark bookmark = BookmarkFactory.newBookmarkByType(Type.BOOK);
+        assertEquals(false, bio.add(bookmark));
+    }
 
 }
