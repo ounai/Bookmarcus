@@ -16,6 +16,7 @@
  */
 package io;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -48,9 +49,7 @@ public class ConsoleIO implements IO {
 
     @Override
     public void print(String... lines) {
-        for (String line : lines) {
-            System.out.println(line);
-        }
+        Arrays.stream(lines).forEach(System.out::println);
     }
     
 }
