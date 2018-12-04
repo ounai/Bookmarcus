@@ -12,11 +12,11 @@ package database.bookmark;
 public class ISBN {
 
     private String isbn;
-    
+
     public ISBN() {
         this.isbn = "";
     }
-    
+
     public String getIsbn() {
         return this.isbn;
     }
@@ -42,54 +42,63 @@ public class ISBN {
 
         String isbnNoDashes = isbn.replaceAll("-", "");
 
-        if (isbnNoDashes.length() == 10) {
-            // ISBN-10
-
-            int sum = 0, multiplier = 10;
-
-            for (char c : isbnNoDashes.toCharArray()) {
-                if (c == 'X') {
-                    sum += multiplier * 10;
-                } else {
-                    sum += multiplier * (c - '0');
-                }
-
-                multiplier--;
-            }
-
-            if (sum % 11 != 0) {
-                return false;
-            }
-        } else if (isbnNoDashes.length() == 13) {
-            // ISBN-13
-
-            int sum = 0, multiplier = 1;
-
-            for (char c : isbnNoDashes.toCharArray()) {
-                if (c == 'X') {
-                    // ISBN-13 cannot contain an X
+        switch (isbnNoDashes.length()) {
+            case 10: {
+                if (isbnValidationLength10(isbnNoDashes)) {
                     return false;
                 }
-
-                sum += multiplier * (c - '0');
-
-                if (multiplier == 3) {
-                    multiplier = 1;
-                } else {
-                    multiplier = 3;
+                break;
+            }
+            case 13: {
+                if (isbnValidationLength13(isbnNoDashes)) {
+                    return false;
                 }
+                break;
             }
+            default:
+                // Not a valid ISBN
 
-            if (sum % 10 != 0) {
                 return false;
-            }
-        } else {
-            // Not a valid ISBN
-
-            return false;
         }
 
         return true;
+    }
+
+    private static boolean isbnValidationLength13(String isbnNoDashes) {
+        int sum = 0, multiplier = 1;
+        for (char c : isbnNoDashes.toCharArray()) {
+            if (c == 'X') {
+                // ISBN-13 cannot contain an X
+                return true;
+            }
+            sum += multiplier * (c - '0');
+            if (multiplier == 3) {
+                multiplier = 1;
+            } else {
+                multiplier = 3;
+            }
+        }
+        if (sum % 10 != 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isbnValidationLength10(String isbnNoDashes) {
+        int sum = 0, multiplier = 10;
+        for (char c : isbnNoDashes.toCharArray()) {
+            if (c == 'X') {
+                sum += multiplier * 10;
+            } else {
+                sum += multiplier * (c - '0');
+            }
+
+            multiplier--;
+        }
+        if (sum % 11 != 0) {
+            return true;
+        }
+        return false;
     }
 
 }
