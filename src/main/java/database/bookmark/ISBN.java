@@ -78,10 +78,7 @@ public class ISBN {
                 multiplier = 3;
             }
         }
-        if (sum % 10 != 0) {
-            return true;
-        }
-        return false;
+        return sum % 10 != 0;
     }
 
     private static boolean isbnValidationLength10(String isbnNoDashes) {
