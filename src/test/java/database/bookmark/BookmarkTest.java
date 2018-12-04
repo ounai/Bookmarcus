@@ -111,4 +111,11 @@ public class BookmarkTest {
         assertFalse(Bookmark.validISBN("951-98548-9-5"));
     }
     
+    @Test
+    public void TestToString() {
+        assertTrue(book.toString().contains("kirja"));
+        assertTrue(article.toString().contains("artikkeli"));
+        assertTrue(book.toString().contains("lukematta"));
+    }
+    
 }
