@@ -198,10 +198,6 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return true;
     }
 
-    @Override
-    public boolean delete(Bookmark bookmark) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     private Connection connect() throws SQLException {
         // SQLite connection string

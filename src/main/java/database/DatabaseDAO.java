@@ -30,7 +30,6 @@ public interface DatabaseDAO<T> {
     public List<T> getAllRead();
     public List<T> getAllUnRead();
     public boolean delete(int id);
-    public boolean delete(T t);
     public boolean add(T t);
     public boolean markAsRead(int id);
     public boolean update(int id, T t);
