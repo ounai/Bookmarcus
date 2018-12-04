@@ -18,12 +18,10 @@ package database;
 
 import database.bookmark.Bookmark;
 import database.bookmark.BookmarkFactory;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import database.bookmark.Type;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +85,28 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     }
 
     @Override
+    public List<Bookmark> findByType(String type) {
+        ArrayList<Bookmark> bookmarks = new ArrayList<>();
+        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE type = ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, Type.getTypeId(type));
+            ResultSet rs = pstmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+                bookmarks.add(collectNextBookmark(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return bookmarks;
+    }
+
+    @Override
     public List<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark;";
@@ -109,7 +129,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public List<Bookmark> getAllUnRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
-        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read=0;";
+        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read='';";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
@@ -128,7 +148,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     @Override
     public List<Bookmark> getAllRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
-        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read=1;";
+        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE read !='';";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
@@ -158,7 +178,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         if (bookmark.hasURL()) {
             bookmark.setURL(rs.getString("url"));
         }
-        bookmark.setRead(rs.getInt("read"));
+        bookmark.setRead(rs.getString("read"));
         return bookmark;
     }
 
@@ -186,10 +206,14 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             return false;
         }
 
-        String sql = "UPDATE bookmark SET read=1 WHERE id=?;";
+        String sql = "UPDATE bookmark SET read=? WHERE id=?;";
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String timeStampString = dateTimeFormat.format(timestamp);
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+            pstmt.setString(1, timeStampString);
+            pstmt.setInt(2, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -227,7 +251,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             pstmt.setString(4, bookmark.getISBN());
             pstmt.setString(5, bookmark.getURL());
             pstmt.setInt(6, bookmark.getType().toInt());
-            pstmt.setInt(7, bookmark.getRead());
+            pstmt.setString(7, bookmark.getRead());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -253,7 +277,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
             pstmt.setString(4, bookmark.getISBN());
             pstmt.setString(5, bookmark.getURL());
             pstmt.setInt(6, bookmark.getType().toInt());
-            pstmt.setInt(7, bookmark.getRead());
+            pstmt.setString(7, bookmark.getRead());
             pstmt.setInt(8, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {

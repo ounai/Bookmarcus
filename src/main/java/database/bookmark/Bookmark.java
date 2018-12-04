@@ -16,6 +16,9 @@
  */
 package database.bookmark;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 /**
  * Database entry container for Bookmark table
  *
@@ -30,7 +33,7 @@ public abstract class Bookmark {
     private int id;
     private String name;
     private String description;
-    private boolean read;
+    private String read;
     
     // Optional fields
     private String author;
@@ -47,7 +50,7 @@ public abstract class Bookmark {
         this.id = id;
         this.name = name;
         this.description = "";
-        this.read = false;
+        this.read = "";
         
         this.author = "";
         this.isbn = "";
@@ -76,19 +79,26 @@ public abstract class Bookmark {
     }
     
     public void setRead(boolean read) {
+        if(read) {
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String timeStampString = dateTimeFormat.format(timestamp);
+            this.read = timeStampString;
+        } else {
+            this.read = "";
+        }
+    }
+    
+    public void setRead(String read) {
         this.read = read;
     }
-    
-    public void setRead(int read) {
-        this.read = (read != 0);
-    }
-    
-    public int getRead() {
-        return (read) ? 1 : 0;
+
+    public String getRead() {
+        return this.read;
     }
     
     public boolean isRead() {
-        return read;
+        return !read.equals("");
     }
     
     public void setID(int id) {
@@ -211,7 +221,7 @@ public abstract class Bookmark {
     
     @Override
     public String toString() {
-        return id + " " + getType() + " " + getName() + " " + ((read) ? "(luettu)" : "(lukematta)");
+        return id + " " + getType() + " " + getName() + " " + ((isRead()) ? "- luettu: " + getRead().substring(0,getRead().length()-3) : "(lukematta)");
     }
 
 }

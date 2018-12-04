@@ -54,6 +54,7 @@ public class Bookmarcus {
                     "7) Etsi vinkkejä tekijän mukaan",
                     "8) Muokkaa vinkkiä",
                     "9) Lisää vinkkiin muistiinpano",
+                    "10) Etsi vinkkejä tyypin mukaan",
                     "0) POISTU");
             io.print("--------------------");
 
@@ -134,6 +135,18 @@ public class Bookmarcus {
                         io.print("! - Syötä oikea vinkin numero.");
                     }
                     
+                    break;
+                case "10":
+                    io.print("Syötä haettavan tyypin nimi: ");
+                    String type = io.nextLine();
+                    List<Bookmark> typeResultBookMarks = bdao.findByType(type);
+                    if (!typeResultBookMarks.isEmpty()) {
+                        for (Bookmark bm : typeResultBookMarks) {
+                            io.print(bm.toString());
+                        }
+                    } else {
+                        io.print("Tyypillä \"" + type + "\" ei löytynyt yhtään vinkkiä.");
+                    }
                     break;
                 case "0": case POISTU_COMMAND:
                     break WHILE;

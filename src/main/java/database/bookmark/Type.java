@@ -33,6 +33,21 @@ public enum Type {
         this.id = id;
         this.name = name;
     }
+
+    public static int getTypeId(String type) {
+         switch(type) {
+             case "kirja":
+                 return 1;
+             case "artikkeli":
+                 return 2;
+             case "blogikirjoitus":
+                 return 3;
+             case "video":
+                 return 4;
+             default:
+                 return 0;
+         }
+    }
     
     public int toInt() {
         return id;
