@@ -209,5 +209,10 @@ public class BookmarkDAOTest {
         Bookmark bookmark = BookmarkFactory.newBookmarkByType(Type.BOOK);
         assertEquals(false, bio.add(bookmark));
     }
+    
+    @Test
+    public void updateFalseIfWrongId() {
+        assertEquals(false, bio.update(4, bm));
+    }
 
 }
