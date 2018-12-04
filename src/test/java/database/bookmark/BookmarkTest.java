@@ -96,19 +96,13 @@ public class BookmarkTest {
         } catch (UnsupportedOperationException e) {}
     }
 
+
+    
     @Test
-    public void isbnCheckingWorks() {
-        assertTrue(Bookmark.validISBN(""));
-
-        assertTrue(Bookmark.validISBN("9519854894"));
-        assertTrue(Bookmark.validISBN("9789519854892"));
-
-        assertTrue(Bookmark.validISBN("951-98548-9-4"));
-        assertTrue(Bookmark.validISBN("978-951-98548-9-2"));
-        assertTrue(Bookmark.validISBN("007462542X"));
-
-        assertFalse(Bookmark.validISBN("Moi"));
-        assertFalse(Bookmark.validISBN("951-98548-9-5"));
+    public void TestToString() {
+        assertTrue(book.toString().contains("kirja"));
+        assertTrue(article.toString().contains("artikkeli"));
+        assertTrue(book.toString().contains("lukematta"));
     }
     
 }

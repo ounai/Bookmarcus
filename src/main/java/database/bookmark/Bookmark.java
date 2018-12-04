@@ -37,7 +37,7 @@ public abstract class Bookmark {
     
     // Optional fields
     private String author;
-    private String isbn;
+    private ISBN isbn;
     private String url;
     
     // Constructors
@@ -53,7 +53,7 @@ public abstract class Bookmark {
         this.read = "";
         
         this.author = "";
-        this.isbn = "";
+        this.isbn = new ISBN();
         this.url = "";
     }
     
@@ -131,78 +131,14 @@ public abstract class Bookmark {
     public boolean setISBN(String isbn) {
         if (!hasISBN()) {
             throw new UnsupportedOperationException();
-        } else if (validISBN(isbn)) {
-            this.isbn = isbn;
-            return true;
         }
-        return false;
+        return this.isbn.setISBN(isbn);
     }
     
-    public static boolean validISBN(String isbn) {
-        String regex = "^(97(8|9))?\\-?[0-9]{3}\\-?[0-9]{5}\\-?[0-9]\\-?([0-9]|X)$";
 
-        if(isbn.isEmpty()) {
-            return true;
-        }
-
-        if (!isbn.matches(regex)) {
-            return false;
-        }
-
-        String isbnNoDashes = isbn.replaceAll("-", "");
-
-        if (isbnNoDashes.length() == 10) {
-            // ISBN-10
-
-            int sum = 0, multiplier = 10;
-
-            for (char c : isbnNoDashes.toCharArray()) {
-                if (c == 'X') {
-                    sum += multiplier * 10;
-                } else {
-                    sum += multiplier * (c - '0');
-                }
-
-                multiplier--;
-            }
-
-            if (sum % 11 != 0) {
-                return false;
-            }
-        } else if (isbnNoDashes.length() == 13) {
-            // ISBN-13
-
-            int sum = 0, multiplier = 1;
-
-            for (char c : isbnNoDashes.toCharArray()) {
-                if (c == 'X') {
-                    // ISBN-13 cannot contain an X
-                    return false;
-                }
-
-                sum += multiplier * (c - '0');
-
-                if (multiplier == 3) {
-                    multiplier = 1;
-                } else {
-                    multiplier = 3;
-                }
-            }
-            
-            if (sum % 10 != 0) {
-                return false;
-            }
-        } else {
-            // Not a valid ISBN
-
-            return false;
-        }
-
-        return true;
-    }
     
     public String getISBN() {
-        return isbn;
+        return isbn.getIsbn();
     }
     
     public abstract boolean hasURL();

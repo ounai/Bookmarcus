@@ -19,6 +19,7 @@ package bookmarcus;
 import database.bookmark.Bookmark;
 import database.DatabaseDAO;
 import database.bookmark.BookmarkFactory;
+import database.bookmark.ISBN;
 import io.IO;
 import java.util.ArrayList;
 import java.util.List;
@@ -251,7 +252,7 @@ public class Bookmarcus {
                     bookmarkToEdit.setAuthor(newValue);
                     break NEW_VALUE;
                 case 5:
-                    if (Bookmark.validISBN(newValue)) {
+                    if (ISBN.validISBN(newValue)) {
                         bookmarkToEdit.setISBN(newValue);
                         break NEW_VALUE;
                     } else {
@@ -293,7 +294,7 @@ public class Bookmarcus {
 
                 isbn = io.nextLine();
 
-                if (Bookmark.validISBN(isbn)) {
+                if (ISBN.validISBN(isbn)) {
                     break;
                 } else {
                     io.print("! - ISBN-tunnus ei kelpaa, syötä oikea ISBN-tunnus.");
