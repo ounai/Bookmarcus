@@ -177,64 +177,75 @@ public class Bookmarcus {
             }
         }
 
-        int fieldToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
-        String oldValue = "";
-        
-        switch (fieldToEdit) {
-            case 1:
-                oldValue = bookmarkToEdit.getName();
-                break;
-            case 2:
-                oldValue = bookmarkToEdit.getDescription();
-                break;
-            case 3:
-                oldValue = bookmarkToEdit.getURL();
-                break;
-            case 4:
-                oldValue = bookmarkToEdit.getAuthor();
-                break;
-            case 5:
-                oldValue = bookmarkToEdit.getISBN();
-                break;
+        int fieldToEdit;
+        String oldValue;
+
+        CHOOSE_FIELD_TO_EDIT:
+        while (true) {
+            fieldToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+            oldValue = "";
+            
+            switch (fieldToEdit) {
+                case 1:
+                    oldValue = bookmarkToEdit.getName();
+                    break CHOOSE_FIELD_TO_EDIT;
+                case 2:
+                    oldValue = bookmarkToEdit.getDescription();
+                    break CHOOSE_FIELD_TO_EDIT;
+                case 3:
+                    oldValue = bookmarkToEdit.getURL();
+                    break CHOOSE_FIELD_TO_EDIT;
+                case 4:
+                    if (bookmarkToEdit.hasAuthor()) {
+                        oldValue = bookmarkToEdit.getAuthor();
+                        break CHOOSE_FIELD_TO_EDIT;
+                    } else {
+                        io.print("! - Syötä oikea kentän numero.");
+                        break;
+                    }
+                case 5:
+                    if (bookmarkToEdit.hasISBN()) {
+                        oldValue = bookmarkToEdit.getISBN();
+                        break CHOOSE_FIELD_TO_EDIT;
+                    } else {
+                        io.print("! - Syötä oikea kentän numero.");
+                        break;
+                    }
+                default:
+                    io.print("! - Syötä oikea kentän numero.");
+                    break;
+            }
         }
                 
         io.print("Vanha arvo: \"" + oldValue + "\"");
-        
-        io.print("Anna uusi arvo: ");
-        String newValue = io.nextLine();
 
-        switch (fieldToEdit) {
-            case 1:
-                bookmarkToEdit.setName(newValue);
-                break;
-            case 2:
-                bookmarkToEdit.setDescription(newValue);
-                break;
-            case 3:
-                bookmarkToEdit.setURL(newValue);
-                break;
-            case 4:
-                if (bookmarkToEdit.hasAuthor()) {
+        NEW_VALUE:
+        while (true) {
+            io.print("Anna uusi arvo: ");
+            String newValue = io.nextLine();
+
+            switch (fieldToEdit) {
+                case 1:
+                    bookmarkToEdit.setName(newValue);
+                    break NEW_VALUE;
+                case 2:
+                    bookmarkToEdit.setDescription(newValue);
+                    break NEW_VALUE;
+                case 3:
+                    bookmarkToEdit.setURL(newValue);
+                    break NEW_VALUE;
+                case 4:
                     bookmarkToEdit.setAuthor(newValue);
-                    break;
-                } else {
-                    io.print("! - Syötä oikea kentän numero.");
-                    edit(bookmarkToEdit); // Maybe want to change this to a while loop
-                    return;
-                }
-            case 5:
-                if (bookmarkToEdit.hasISBN()) {
-                    bookmarkToEdit.setISBN(newValue);
-                    break;
-                } else {
-                    io.print("! - Syötä oikea kentän numero.");
-                    edit(bookmarkToEdit); // Maybe want to change this to a while loop
-                    return;
-                }
-            default:
-                io.print("! - Syötä oikea kentän numero.");
-                edit(bookmarkToEdit); // Maybe want to change this to a while loop
-                return;
+                    break NEW_VALUE;
+                case 5:
+                    if (Bookmark.validISBN(newValue)) {
+                        bookmarkToEdit.setISBN(newValue);
+                        break NEW_VALUE;
+                    } else {
+                        io.print("! - ISBN-tunnus ei kelpaa.");
+                        break;
+                    }
+            }
         }
         
         if (bdao.update(bookmarkToEdit.getID(), bookmarkToEdit)) {
@@ -262,8 +273,21 @@ public class Bookmarcus {
             bookmark.setURL(io.nextLine());
         }
         if (bookmark.hasISBN()) {
-            io.print("Syötä vinkin ISBN-tunnus:");
-            bookmark.setISBN(io.nextLine());
+            String isbn;
+
+            while (true) {
+                io.print("Syötä vinkin ISBN-tunnus:");
+
+                isbn = io.nextLine();
+
+                if (Bookmark.validISBN(isbn)) {
+                    break;
+                } else {
+                    io.print("! - ISBN-tunnus ei kelpaa, syötä oikea ISBN-tunnus.");
+                }
+            }
+
+            bookmark.setISBN(isbn);
         }
         io.print("Lisää vinkkiä koskevat muistiinpanot:");
         bookmark.setDescription(io.nextLine());

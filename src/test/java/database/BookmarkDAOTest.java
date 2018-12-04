@@ -125,7 +125,7 @@ public class BookmarkDAOTest {
         String newName = "New Name Best Name",
                 newDesc = "The description changed all of a sudden!",
                 newAuthor = "This Guy",
-                newISBN = "ISBN 2.0";
+                newISBN = "9519854894";
         
         bm.setName(newName);
         bm.setDescription(newDesc);
