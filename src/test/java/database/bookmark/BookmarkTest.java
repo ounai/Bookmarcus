@@ -98,6 +98,8 @@ public class BookmarkTest {
 
     @Test
     public void isbnCheckingWorks() {
+        assertTrue(Bookmark.validISBN(""));
+
         assertTrue(Bookmark.validISBN("9519854894"));
         assertTrue(Bookmark.validISBN("9789519854892"));
 

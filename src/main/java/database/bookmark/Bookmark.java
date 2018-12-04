@@ -131,6 +131,10 @@ public abstract class Bookmark {
     public static boolean validISBN(String isbn) {
         String regex = "^(97(8|9))?\\-?[0-9]{3}\\-?[0-9]{5}\\-?[0-9]\\-?([0-9]|X)$";
 
+        if(isbn.isEmpty()) {
+            return true;
+        }
+
         if (!isbn.matches(regex)) {
             return false;
         }
