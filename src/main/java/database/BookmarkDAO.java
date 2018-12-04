@@ -218,7 +218,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     @Override
     public boolean add(Bookmark bookmark) {
-        if (bookmark.getName() == null) {
+        if (bookmark.getName() == null || bookmark.getName().equals("n/a")) {
             return false;
         }
 
