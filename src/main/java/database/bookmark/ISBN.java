@@ -30,18 +30,20 @@ public class ISBN {
     }
 
     public static boolean validISBN(String isbn) {
-        String regex = "^(97(8|9))?\\-?[0-9]{3}\\-?[0-9]{5}\\-?[0-9]\\-?([0-9]|X)$";
 
         if (isbn.isEmpty()) {
             return true;
         }
 
+        return isbnValidation(isbn);
+    }
+
+    private static boolean isbnValidation(String isbn) {
+        String regex = "^(97(8|9))?\\-?[0-9]{3}\\-?[0-9]{5}\\-?[0-9]\\-?([0-9]|X)$";
         if (!isbn.matches(regex)) {
             return false;
         }
-
         String isbnNoDashes = isbn.replaceAll("-", "");
-
         switch (isbnNoDashes.length()) {
             case 10: {
                 if (isbnValidationLength10(isbnNoDashes)) {
@@ -60,7 +62,6 @@ public class ISBN {
 
                 return false;
         }
-
         return true;
     }
 
