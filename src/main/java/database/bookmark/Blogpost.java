@@ -20,7 +20,7 @@ package database.bookmark;
  *
  * @author WebCoodi
  */
-public class Blogpost extends Bookmark {
+class Blogpost extends Bookmark {
 
     @Override
     public Type getType() {
