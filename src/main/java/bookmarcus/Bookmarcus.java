@@ -252,8 +252,7 @@ public class Bookmarcus {
                     bookmarkToEdit.setAuthor(newValue);
                     break NEW_VALUE;
                 case 5:
-                    if (ISBN.validISBN(newValue)) {
-                        bookmarkToEdit.setISBN(newValue);
+                    if (bookmarkToEdit.setISBN(newValue)) { 
                         break NEW_VALUE;
                     } else {
                         io.print("! - ISBN-tunnus ei kelpaa.");

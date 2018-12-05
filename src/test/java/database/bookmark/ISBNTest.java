@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
  */
 public class ISBNTest {
     
+    ISBN isbn;
+    
 
     public ISBNTest() {
     }
@@ -32,6 +34,7 @@ public class ISBNTest {
 
     @Before
     public void setUp() {
+        isbn = new ISBN();
     }
 
     @After
@@ -40,17 +43,17 @@ public class ISBNTest {
 
     @Test
     public void isbnCheckingWorks() {
-        assertTrue(ISBN.validISBN(""));
+        assertTrue(isbn.setISBN(""));
 
-        assertTrue(ISBN.validISBN("9519854894"));
-        assertTrue(ISBN.validISBN("9789519854892"));
+        assertTrue(isbn.setISBN("9519854894"));
+        assertTrue(isbn.setISBN("9789519854892"));
 
-        assertTrue(ISBN.validISBN("951-98548-9-4"));
-        assertTrue(ISBN.validISBN("978-951-98548-9-2"));
-        assertTrue(ISBN.validISBN("007462542X"));
+        assertTrue(isbn.setISBN("951-98548-9-4"));
+        assertTrue(isbn.setISBN("978-951-98548-9-2"));
+        assertTrue(isbn.setISBN("007462542X"));
 
-        assertFalse(ISBN.validISBN("Moi"));
-        assertFalse(ISBN.validISBN("951-98548-9-5"));
+        assertFalse(isbn.setISBN("Moi"));
+        assertFalse(isbn.setISBN("951-98548-9-5"));
     }
 
 }
