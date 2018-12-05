@@ -52,6 +52,15 @@ jacocoTestReport {
     }
 }
 
+distributions {
+    main {
+        baseName = 'Bookmarcus'
+        contents {
+            into('bin/sql') {from 'sql'}
+        }
+    }
+}
+
 URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file -> loader.addURL(file.toURI().toURL())}
 
