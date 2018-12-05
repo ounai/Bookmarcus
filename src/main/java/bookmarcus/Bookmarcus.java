@@ -294,14 +294,14 @@ public class Bookmarcus {
 
                 isbn = io.nextLine();
 
-                if (ISBN.validISBN(isbn)) {
+                if (bookmark.setISBN(isbn)) {
                     break;
                 } else {
                     io.print("! - ISBN-tunnus ei kelpaa, syötä oikea ISBN-tunnus.");
                 }
             }
 
-            bookmark.setISBN(isbn);
+            
         }
         io.print("Lisää vinkkiä koskevat muistiinpanot:");
         bookmark.setDescription(io.nextLine());
