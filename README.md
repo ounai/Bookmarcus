@@ -5,6 +5,18 @@
 Bookmarking App
   * [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
 
+## Käyttöönotto-ohjeet
+  - Lataa release-sivulta .zip tiedosto
+  - Pura tiedosto
+  - Suorita kansiossa bin oleva Bookmarcus.sh (linux) tai Bookmarcus.bat (windows)
+
+## Ohjeet distribuution tekijälle
+  - Tagaa uusin commit joka tulee mukaan
+  - Poista Bookmarcus.db (sql/db) mikäli haluat tyhjän tietokannan
+  - Suorita `gradle distZip`
+  - Vie versio githubin releaseihin
+
+
 
 ## Tietokanta
 Tietokanta luodaan nyt build.gradlessa scriptillä. Luonti SQL löytyy sql/init.sql
