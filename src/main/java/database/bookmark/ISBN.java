@@ -46,23 +46,17 @@ public class ISBN {
         String isbnNoDashes = isbn.replaceAll("-", "");
         switch (isbnNoDashes.length()) {
             case 10: {
-                if (isbnValidationLength10(isbnNoDashes)) {
-                    return false;
-                }
-                break;
+                return isbnValidationLength10(isbnNoDashes);
+
             }
             case 13: {
-                if (isbnValidationLength13(isbnNoDashes)) {
-                    return false;
-                }
-                break;
+                return isbnValidationLength13(isbnNoDashes);
             }
             default:
                 // Not a valid ISBN
 
                 return false;
         }
-        return true;
     }
 
     private static boolean isbnValidationLength13(String isbnNoDashes) {
@@ -70,7 +64,7 @@ public class ISBN {
         for (char c : isbnNoDashes.toCharArray()) {
             if (c == 'X') {
                 // ISBN-13 cannot contain an X
-                return true;
+                return false;
             }
             sum += multiplier * (c - '0');
             if (multiplier == 3) {
@@ -79,7 +73,7 @@ public class ISBN {
                 multiplier = 3;
             }
         }
-        return sum % 10 != 0;
+        return sum % 10 == 0;
     }
 
     private static boolean isbnValidationLength10(String isbnNoDashes) {
@@ -93,7 +87,7 @@ public class ISBN {
 
             multiplier--;
         }
-        return sum % 11 != 0;
+        return sum % 11 == 0;
     }
 
 }
