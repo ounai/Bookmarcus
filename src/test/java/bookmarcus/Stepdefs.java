@@ -132,7 +132,7 @@ public class Stepdefs {
         verify(mockDAO, times(1)).markAsRead(anyInt());
     }
 
-    @Then("bookmarks with author are listed$")
+    @Then("^bookmarks with author are listed$")
     public void bookmarks_with_author_are_listed() throws Throwable {
         inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
         when(mockIO.hasNextLine()).thenReturn(true);
@@ -143,6 +143,19 @@ public class Stepdefs {
             fail(e.getMessage());
         }
         verify(mockDAO, times(1)).findByAuthor(anyString());
+    }
+
+    @Then("^bookmarks with type are listed$")
+    public void bookmarks_with_type_are_listed() throws Throwable {
+        inputFeed = inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+            bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+            fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).findByType(anyString());
     }
 
 }

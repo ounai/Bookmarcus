@@ -16,3 +16,8 @@ Feature: As a user I can view bookmarks
         Given that the command "7" is entered
         When  the id "Matti" is entered
         Then  bookmarks with author are listed
+
+    Scenario: Listing bookmarks by type
+        Given that the command "10" is entered
+        When  the type "artikkeli" is entered
+        Then  bookmarks with type are listed
