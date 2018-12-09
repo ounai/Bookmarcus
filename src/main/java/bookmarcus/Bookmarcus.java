@@ -288,7 +288,7 @@ public class Bookmarcus {
         int fieldToEdit = 0;
         while (fieldToEdit == 0) {
             try {
-                fieldToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+                fieldToEdit = Integer.parseInt(io.nextLine());
                 if (!fields.containsKey(fieldToEdit)) {
                     throw new IllegalArgumentException();
                 }
