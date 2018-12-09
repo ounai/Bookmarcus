@@ -35,6 +35,12 @@ import java.util.logging.Logger;
  */
 public class Bookmarcus {
 
+    /**
+     * A Field object contains the external name and the internal name of a
+     * Bookmark field. The external name is printed in the menu and the 
+     * internal name (which corresponds to the instance variable name capitalized)
+     * is used for getting and setting the value of the field.
+     */
     private class Field {
 
         private final String externalName;
@@ -203,7 +209,6 @@ public class Bookmarcus {
     private void edit(Bookmark bookmarkToEdit) {
         HashMap<Integer, Field> fields = getEditableFields(bookmarkToEdit);
         io.print(bookmarkToEdit.toString());
-        io.print("Valitse muokattava kenttä:");
         fields.entrySet().stream()
                 .sorted((entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()))
                 .forEach(e -> io.print(e.getKey() + ") " + e.getValue().getExternalName()));
@@ -270,6 +275,12 @@ public class Bookmarcus {
         bdao.add(bookmark);
     }
 
+    /**
+     * Map the numbers of the editable fields to their names.
+     * 
+     * @param the bookmark to edit
+     * @return menu number -> field
+     */
     private HashMap<Integer, Field> getEditableFields(Bookmark bookmarkToEdit) {
         HashMap<Integer, Field> fields = new HashMap<>();
         fields.put(1, new Field("nimi", "Name"));
@@ -283,9 +294,16 @@ public class Bookmarcus {
         }
         return fields;
     }
-
+    
+    /**
+     * Ask the user to choose a field to edit.
+     * 
+     * @param fields
+     * @return the number of the field to edit
+     */
     private int getFieldNumber(HashMap<Integer, Field> fields) {
         int fieldToEdit = 0;
+        io.print("Valitse muokattava kenttä:");
         while (fieldToEdit == 0) {
             try {
                 fieldToEdit = Integer.parseInt(io.nextLine());
@@ -299,6 +317,13 @@ public class Bookmarcus {
         return fieldToEdit;
     }
 
+    /**
+     * Get the value of a field by its menu number.
+     * 
+     * @param bookmark
+     * @param fieldNumber
+     * @return field value
+     */
     private String getFieldValue(Bookmark bookmark, int fieldNumber) {
         String internalName = getEditableFields(bookmark).get(fieldNumber).internalName;
         String getterName = "get" + internalName;
@@ -311,6 +336,13 @@ public class Bookmarcus {
         return value;
     }
 
+    /**
+     * Set the value of the field specified by its menu number.
+     * 
+     * @param bookmark
+     * @param fieldNumber
+     * @param newValue 
+     */
     private void setFieldValue(Bookmark bookmark, int fieldNumber, String newValue) {
         String internalName = getEditableFields(bookmark).get(fieldNumber).internalName;
         String setterName = "set" + internalName;
