@@ -29,7 +29,7 @@ public class ISBN {
         return false;
     }
 
-    private static boolean validISBN(String isbn) {
+    public static boolean validISBN(String isbn) {
 
         if (isbn.isEmpty()) {
             return true;
