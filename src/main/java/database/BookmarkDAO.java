@@ -184,7 +184,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     @Override
     public boolean delete(int id) {
-        if (find(id) == null) {
+        if (notFound(id)) {
             return false;
         }
 
@@ -202,7 +202,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     @Override
     public boolean markAsRead(int id) {
-        if (find(id) == null) {
+        if (notFound(id)) {
             return false;
         }
 
@@ -262,7 +262,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     
     @Override
     public boolean update(int id, Bookmark bookmark) {
-        if (find(id) == null) {
+        if (notFound(id)) {
             return false;
         }
         
@@ -288,4 +288,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return true;
     }
 
+    private boolean notFound(int id) {
+        return find(id) == null;
+    }
 }
