@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/ounai/Bookmarcus/branch/master/graph/badge.svg)](https://codecov.io/gh/ounai/Bookmarcus)
 
 Bookmarking App
-  * [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
+  - [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
 
 ## Käyttöönotto-ohjeet
   - Lataa release-sivulta .zip tiedosto
