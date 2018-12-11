@@ -41,4 +41,13 @@ public class TypeTest {
         }
     }
     
+    @Test
+    public void getTypeId() {
+         assertEquals(1, Type.getTypeId("kirja"));
+         assertEquals(2, Type.getTypeId("artikkeli"));
+         assertEquals(3, Type.getTypeId("blogikirjoitus"));
+         assertEquals(4, Type.getTypeId("video"));
+         assertEquals(0, Type.getTypeId("default"));
+    }
+    
 }
