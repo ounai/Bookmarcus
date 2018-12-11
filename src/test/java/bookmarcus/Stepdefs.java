@@ -1,4 +1,3 @@
-
 package bookmarcus;
 
 import cucumber.api.PendingException;
@@ -156,6 +155,31 @@ public class Stepdefs {
             fail(e.getMessage());
         }
         verify(mockDAO, times(1)).findByType(anyString());
+    }
+
+    @When("^the number \"([^\"]*)\" is entered$")
+    public void the_number_is_entered(String number) throws Throwable {
+        inputFeed = inputFeed.thenReturn(number);
+    }
+
+    @Then("^name is edited$")
+    public void name_is_edited() throws Throwable {
+        /*        
+        Kesken
+        inputFeed.thenReturn(Bookmarcus.POISTU_COMMAND).thenThrow(new NoSuchElementException("Input exhausted too soon"));
+        when(mockIO.hasNextLine()).thenReturn(true);
+        Bookmarcus bookmarcus = new Bookmarcus(mockDAO, mockIO);
+        try {
+        bookmarcus.consoleApp();
+        } catch (NoSuchElementException e) {
+        fail(e.getMessage());
+        }
+        verify(mockDAO, times(1)).update(anyInt(), any());*/
+    }
+
+    @When("^new name \"([^\"]*)\" is entered$")
+    public void new_name_is_entered(String name) throws Throwable {
+        inputFeed.thenReturn(name);
     }
 
 }

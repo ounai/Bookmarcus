@@ -214,5 +214,13 @@ public class BookmarkDAOTest {
     public void updateFalseIfWrongId() {
         assertEquals(false, bio.update(4, bm));
     }
+    
+    @Test
+    public void findByType() {
+        bio.add(bm);
+        bio.add(bm2);
+        bio.add(bm3);
+        assertEquals(1, bio.findByType("kirja").size());
+    }
 
 }
