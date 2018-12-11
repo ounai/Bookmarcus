@@ -105,4 +105,13 @@ public class BookmarkTest {
         assertTrue(book.toString().contains("lukematta"));
     }
     
+    @Test
+    public void testSetRead() {
+        assertEquals(book.getRead(), "");
+        book.setRead(true);
+        assertEquals(book.getRead().equals(""), false);
+        book.setRead(false);
+        assertEquals(book.getRead(), "");
+    }
+    
 }
