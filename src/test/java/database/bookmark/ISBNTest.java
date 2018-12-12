@@ -54,6 +54,9 @@ public class ISBNTest {
 
         assertFalse(isbn.setISBN("Moi"));
         assertFalse(isbn.setISBN("951-98548-9-5"));
+        assertFalse(isbn.setISBN("978951985489X"));
+        assertFalse(isbn.setISBN("abc"));
+        assertFalse(isbn.setISBN("978951985489"));
     }
 
 }

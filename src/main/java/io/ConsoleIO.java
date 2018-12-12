@@ -16,6 +16,7 @@
  */
 package io;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -28,6 +29,10 @@ public class ConsoleIO implements IO {
     
     public ConsoleIO() {
         this.scanner = new Scanner(System.in);
+    }
+    
+    public ConsoleIO(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     @Override
@@ -48,9 +53,7 @@ public class ConsoleIO implements IO {
 
     @Override
     public void print(String... lines) {
-        for (String line : lines) {
-            System.out.println(line);
-        }
+        Arrays.stream(lines).forEach(System.out::println);
     }
     
 }

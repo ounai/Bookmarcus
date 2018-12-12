@@ -16,13 +16,16 @@
  */
 package io;
 
+import java.io.Closeable;
+
 /**
  *
  * @author WebCoodi
  */
-public interface IO {
+public interface IO extends Closeable {
     boolean hasNextLine();
     String nextLine();
     void print(String... lines);
+    @Override
     void close();
 }

@@ -33,6 +33,7 @@ public class Bookmarcus {
     // These are used for consistent calling when numbers may change
     public final static String UUSI_COMMAND = "uusi";
     public final static String POISTU_COMMAND = "poistu";
+    public final static String MUOKKAA_COMMAND = "muokkaa";
 
     private final DatabaseDAO<Bookmark> bdao;
     private final IO io;
@@ -122,7 +123,7 @@ public class Bookmarcus {
                         io.print("Tekijällä \"" + author + "\" ei löytynyt yhtään vinkkiä.");
                     }
                     break;
-                case "8":
+                case "8": case MUOKKAA_COMMAND:
                     io.print("Syötä muokattavan vinkin numero: ");
                     try {
                         int idToEdit = Integer.parseInt(io.nextLine());
