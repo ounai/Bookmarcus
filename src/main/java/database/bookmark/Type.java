@@ -8,7 +8,7 @@
  *
  * Bookmarcus is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -33,20 +33,23 @@ public enum Type {
         this.id = id;
         this.name = name;
     }
+    
+    public static Type getFromString(String string, Type defaultType) {
+        for (Type t : Type.values()) {
+            if (string.equalsIgnoreCase(t.toString())) {
+                return t;
+            }
+        }
+        return defaultType;
+    }
 
-    public static int getTypeId(String type) {
-         switch(type) {
-             case "kirja":
-                 return 1;
-             case "artikkeli":
-                 return 2;
-             case "blogikirjoitus":
-                 return 3;
-             case "video":
-                 return 4;
-             default:
-                 return 0;
-         }
+    public static Type getFromInt(int i, Type defaultType) {
+        for (Type t : Type.values()) {
+            if (i == t.toInt()) {
+                return t;
+            }
+        }
+        return defaultType;
     }
     
     public int toInt() {

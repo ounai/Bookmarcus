@@ -42,12 +42,13 @@ public class TypeTest {
     }
     
     @Test
-    public void getTypeId() {
-         assertEquals(1, Type.getTypeId("kirja"));
-         assertEquals(2, Type.getTypeId("artikkeli"));
-         assertEquals(3, Type.getTypeId("blogikirjoitus"));
-         assertEquals(4, Type.getTypeId("video"));
-         assertEquals(0, Type.getTypeId("default"));
+    public void gettersWorkProperly() {
+        for (Type type : Type.values()) {
+            assertEquals(type, Type.getFromInt(type.toInt(), null));
+            assertEquals(Type.ARTICLE, Type.getFromInt(-1, Type.ARTICLE));
+            assertEquals(type, Type.getFromString(type.toString(), null));
+            assertEquals(Type.VIDEO, Type.getFromString("noexist", Type.VIDEO));
+        }
     }
     
 }

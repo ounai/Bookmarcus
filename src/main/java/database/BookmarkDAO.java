@@ -92,7 +92,7 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, Type.getTypeId(type));
+            pstmt.setInt(1, Type.getFromString(type, Type.BOOK).toInt());
             ResultSet rs = pstmt.executeQuery();
 
             // loop through the result set

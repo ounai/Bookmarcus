@@ -22,22 +22,20 @@ package database.bookmark;
  */
 public class BookmarkFactory {
     
-    public static Bookmark newBookmarkByType(int type) {
-        for (Type t : Type.values()) {
-            if (type == t.toInt()) {
-                return newBookmarkByType(t);
-            }
+    public static Bookmark newBookmarkByType(int i) {
+        Type type = Type.getFromInt(i, null);
+        if (type != null) {
+            return newBookmarkByType(type);
         }
-        throw new IllegalArgumentException("Type " + type + " not supported.");
+        throw new IllegalArgumentException("Type " + i + " not supported.");
     }
     
-    public static Bookmark newBookmarkByType(String type) {
-        for (Type t : Type.values()) {
-            if (type.equalsIgnoreCase(t.toString())) {
-                return newBookmarkByType(t);
-            }
+    public static Bookmark newBookmarkByType(String string) {
+        Type type = Type.getFromString(string, null);
+        if (type != null) {
+            return newBookmarkByType(type);
         }
-        throw new IllegalArgumentException("Type '" + type + "' not supported.");
+        throw new IllegalArgumentException("Type '" + string + "' not supported.");
     }
     
     public static Bookmark newBookmarkByType(Type type) {
@@ -47,9 +45,9 @@ public class BookmarkFactory {
         switch (type) {
             case ARTICLE:  return new Article();
             case BLOGPOST: return new Blogpost();
-//            case BOOK:     return new Book();
+            case BOOK:     return new Book();
             case VIDEO:    return new Video();
-            default:       return new Book();
+            default:       throw new RuntimeException(); // Should never be reached
         }
     }
     
