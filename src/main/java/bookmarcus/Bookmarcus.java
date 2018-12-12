@@ -56,6 +56,7 @@ public class Bookmarcus {
                     "8) Muokkaa vinkkiä",
                     "9) Lisää vinkkiin muistiinpano",
                     "10) Etsi vinkkejä tyypin mukaan",
+                    "11) Etsi vinkkejä joilla on vastaava kommentti",
                     "0) POISTU");
             io.print("--------------------");
 
@@ -71,12 +72,16 @@ public class Bookmarcus {
                     break;
                 case "3":
                     io.print("Syötä poistettavan vinkin numero: ");
-                    int id = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
-                    boolean success = bdao.delete(id);
-                    if(success) {
-                        io.print("Vinkki on poistettu.");
-                    } else {
-                        io.print("! - Syötä oikea vinkin numero.");
+                    try {
+                        int id = Integer.parseInt(io.nextLine());
+                        boolean success = bdao.delete(id);
+                        if (success) {
+                            io.print("Vinkki on poistettu.");
+                        } else {
+                            io.print("! - Syötä oikea vinkin numero.");
+                        }
+                    } catch(NumberFormatException e) {
+                        io.print("Syötä numero!");
                     }
                     break;
                 case "4":
@@ -93,12 +98,16 @@ public class Bookmarcus {
                     break;
                 case "6":
                     io.print("Syötä luetuksi tai katsotuksi merkattavan vinkin numero: ");
-                    int readId = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
-                    boolean readSuccess = bdao.markAsRead(readId);
-                    if(readSuccess) {
-                        io.print("Vinkki on merkitty luetuksi/katsotuksi.");
-                    } else {
-                        io.print("! - Syötä oikea vinkin numero.");
+                    try {
+                        int readId = Integer.parseInt(io.nextLine());
+                        boolean readSuccess = bdao.markAsRead(readId);
+                        if (readSuccess) {
+                            io.print("Vinkki on merkitty luetuksi/katsotuksi.");
+                        } else {
+                            io.print("! - Syötä oikea vinkin numero.");
+                        }
+                    } catch(NumberFormatException e) {
+                        io.print("Syötä numero!");
                     }
                     break;
                 case "7":
@@ -115,27 +124,33 @@ public class Bookmarcus {
                     break;
                 case "8":
                     io.print("Syötä muokattavan vinkin numero: ");
-                    int idToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
-                    Bookmark bookmarkToEdit = bdao.find(idToEdit);
-                    
-                    if (bookmarkToEdit != null) {
-                        edit(bookmarkToEdit);
-                    } else {
-                        io.print("! - Syötä oikea vinkin numero.");
+                    try {
+                        int idToEdit = Integer.parseInt(io.nextLine());
+                        Bookmark bookmarkToEdit = bdao.find(idToEdit);
+
+                        if (bookmarkToEdit != null) {
+                            edit(bookmarkToEdit);
+                        } else {
+                            io.print("! - Syötä oikea vinkin numero.");
+                        }
+                    } catch(NumberFormatException e) {
+                        io.print("Syötä numero!");
                     }
-                    
                     break;
                 case "9":
                     io.print("Syötä vinkin numero: ");
-                    int idToAddNote = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
-                    Bookmark bookmarkToAddNote = bdao.find(idToAddNote);
-                    
-                    if (bookmarkToAddNote != null) {
-                        addNote(bookmarkToAddNote);
-                    } else {
-                        io.print("! - Syötä oikea vinkin numero.");
+                    try {
+                        int idToAddNote = Integer.parseInt(io.nextLine());
+                        Bookmark bookmarkToAddNote = bdao.find(idToAddNote);
+
+                        if (bookmarkToAddNote != null) {
+                            addNote(bookmarkToAddNote);
+                        } else {
+                            io.print("! - Syötä oikea vinkin numero.");
+                        }
+                    } catch (NumberFormatException e) {
+                        io.print("Syötä numero!");
                     }
-                    
                     break;
                 case "10":
                     io.print("Syötä haettavan tyypin nimi: ");
@@ -147,6 +162,18 @@ public class Bookmarcus {
                         }
                     } else {
                         io.print("Tyypillä \"" + type + "\" ei löytynyt yhtään vinkkiä.");
+                    }
+                    break;
+                case "11":
+                    io.print("Syötä haettava kommentti: ");
+                    String comment = io.nextLine();
+                    List<Bookmark> matchingBookmarks = bdao.searchWithComment(comment);
+                    if (!matchingBookmarks.isEmpty()) {
+                        for (Bookmark bm : matchingBookmarks) {
+                            io.print(bm.toString());
+                        }
+                    } else {
+                        io.print("Yhdelläkään vinkillä ei ollut kommenttia: '" + comment + "'");
                     }
                     break;
                 case "0": case POISTU_COMMAND:

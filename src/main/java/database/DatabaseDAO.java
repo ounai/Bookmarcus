@@ -27,6 +27,7 @@ public interface DatabaseDAO<T> {
     public T find(int id);
     public List<T> findByAuthor(String author);
     public List<T> findByType(String type);
+    public List<T> searchWithComment(String comment);
     public List<T> getAll();
     public List<T> getAllRead();
     public List<T> getAllUnRead();
