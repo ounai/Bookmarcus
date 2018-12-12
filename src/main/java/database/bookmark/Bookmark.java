@@ -157,10 +157,12 @@ public abstract class Bookmark {
     
     @Override
     public String toString() {
-        return id + " " + getType() + ", " + getName() + " "
-                + ((isRead()) ? "- luettu: " + getRead().substring(0,getRead().length()-3) : "(lukematta)")
-                + ((!getISBN().isEmpty()) ? " isbn: " + getISBN() : "")
-                + ((!getDescription().isEmpty()) ? "\n" + getDescription() + "\n" : "\n");
+        return  "---------------------------------------------------------\n"
+                + id + ": " + getType() + " | " + getName() + " | "
+                + ((isRead()) ? "luettu: " + getRead().substring(0,getRead().length()-3) + " |" : "(lukematta) | ")
+                + ((!getISBN().isEmpty()) ? "| isbn: " + getISBN() + " |": "")
+                + ((!getDescription().isEmpty()) ? "\n\n" +  getDescription() : "\n")
+                + "\n---------------------------------------------------------";
     }
 
 }

@@ -107,6 +107,27 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
     }
 
     @Override
+    public List<Bookmark> searchWithComment(String comment) {
+        ArrayList<Bookmark> bookmarks = new ArrayList<>();
+        String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark WHERE description LIKE '%" + comment + "%';";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+                bookmarks.add(collectNextBookmark(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return bookmarks;
+    }
+
+    @Override
     public List<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         String sql = "SELECT id, name, description, author, isbn, url, type, read FROM bookmark;";
