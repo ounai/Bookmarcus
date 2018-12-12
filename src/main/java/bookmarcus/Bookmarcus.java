@@ -54,6 +54,7 @@ public class Bookmarcus {
                     "8) Muokkaa vinkkiä",
                     "9) Lisää vinkkiin muistiinpano",
                     "10) Etsi vinkkejä tyypin mukaan",
+                    "11) Etsi vinkkejä joilla on vastaava kommentti",
                     "0) POISTU");
             io.print("--------------------");
 
@@ -96,6 +97,18 @@ public class Bookmarcus {
                     break;
                 case "10":
                     new ListAllOfType(io, bdao).run();
+                    break;
+                case "11":
+                    io.print("Syötä haettava kommentti: ");
+                    String comment = io.nextLine();
+                    List<Bookmark> matchingBookmarks = bdao.searchWithComment(comment);
+                    if (!matchingBookmarks.isEmpty()) {
+                        for (Bookmark bm : matchingBookmarks) {
+                            io.print(bm.toString());
+                        }
+                    } else {
+                        io.print("Yhdelläkään vinkillä ei ollut kommenttia: '" + comment + "'");
+                    }
                     break;
                 case "0": case POISTU_COMMAND:
                     break WHILE;

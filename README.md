@@ -17,7 +17,8 @@ Bookmarking App
   - Vie versio githubin releaseihin
 
 
-
+## Demodata
+Demodataa on kansiossa sql/demodata. Kopioi sql-tiedostot sql-kansioon niin buildi (gradle) suorittee ne.
 ## Tietokanta
 Tietokanta luodaan nyt build.gradlessa scriptillä. Luonti SQL löytyy sql/init.sql
 Jarit eivät oletuksena toimi koska jariin ei tule mukaan muita kansioita.

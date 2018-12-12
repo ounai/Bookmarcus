@@ -1,0 +1,15 @@
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja viisasten kivi", "Sarjan ensimäinen kirja", "J.K.Rowling", "9789604533084", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja salaisuuksien kammio", "Sarjan toinen kirja", "J.K.Rowling", "978080786012", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja Azkabanin vanki", "Sarjan kolmas kirja", "J.K.Rowling", "9780439249546", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja liekehtivä pikari", "Sarjan neljäs kirja", "J.K.Rowling", "9781413185096", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja Feeniksin kilta", "Sarjan viides kirja", "J.K.Rowling", "9789544467616", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja puoliverinen prinssi", "Sarjan kuudes kirja", "J.K.Rowling", "9788532530837", 1, "");
+INSERT INTO bookmark (name, description, author, isbn, type, read) VALUES ("Harry potter ja kuoleman varjelukset", "Sarjan seitämäs kirja/päätösosa", "J.K.Rowling", "9780540100221", 1, "");
+INSERT INTO bookmark (name, description, author, type, read) VALUES ("Bladerunner 2049", "Jatko-osa Bladerunnerille", "Denis Villeneuve", 4, "");
+INSERT INTO bookmark (name, description, author, type, read) VALUES ("Bladerunner", "Hyvä neo-noir tieteiselokuva", "Ridley Scott", 4, "");
+INSERT INTO bookmark (name, description, author, url, type, read) VALUES ("Violin games", "Hauska video jossa arvuutellaan pelejä viulun avulla", "Two set violin","https://youtu.be/VfnvqfhWN6M" ,4, "");
+INSERT INTO bookmark (name, description, author, url, type, read) VALUES ("Chopin blindfolded", "linling workout, soitetaan vaikeita kappaleita pianolla ekstrahaasteella", "Two set violin", "https://www.youtube.com/watch?v=N8zj1DpfNho", 4, "");
+INSERT INTO bookmark (name, description, url, type, read) VALUES ("imslp", "Petrucci music library","https://imslp.org/", 2, "");
+INSERT INTO bookmark (name, description, author, url, type, read) VALUES ("pythonic-operators-on-stl-set-algorithms","", "Shao Voon Wong", "https://www.codeguru.com/cpp/cpp/pythonic-operators-on-stl-set-algorithms-180103052514.html", 2, "");
+INSERT INTO bookmark (name, description, author, url, type, read) VALUES ("The BS bethod on chords", "How to teach piano chords, Big-Small major, Small-Big minor", "Tim Topham", "https://timtopham.com/how-to-teach-piano-chords/", 3, "");
+INSERT INTO bookmark (name, description, author, url, type, read) VALUES ("Top10 pop song for piano students","", "Tim Topham", "https://timtopham.com/top-10-pop-songs-for-piano-students/", 3, "");
