@@ -19,7 +19,6 @@ package bookmarcus;
 import database.bookmark.Bookmark;
 import database.DatabaseDAO;
 import io.IO;
-import java.util.List;
 
 /**
  *
@@ -34,87 +33,39 @@ public class Bookmarcus {
 
     private final DatabaseDAO<Bookmark> bdao;
     private final IO io;
+    private final Menu<Command> menu;
+    private boolean exit;
 
     public Bookmarcus(DatabaseDAO<Bookmark> bdao, IO io) {
         this.bdao = bdao;
         this.io = io;
+        this.exit = false;
+        this.menu = new Menu((Command) () -> io.print("! - Tuntematon komento"));
+        initMenu();
+        
+    }
+    
+    private void initMenu() {
+        menu.add("listaa", "Listaa vinkit", () -> bdao.getAll().forEach(bm -> io.print(bm.toString())));
+        menu.add(UUSI_COMMAND, "Uusi vinkki", new NewBookmark(io, bdao));
+        menu.add("poista", "Poista vinkki", new Remove(io, bdao));
+        menu.add("lukemattomat", "Listaa lukemattomat vinkit", () -> bdao.getAllUnRead().forEach(bm -> io.print(bm.toString())));
+        menu.add("luetut", "Listaa luetut vinkit", () -> bdao.getAllRead().forEach(bm -> io.print(bm.toString())));
+        menu.add("lue", "Merkitse vinkki luetuksi/katsotuksi", new SetRead(io, bdao));
+        menu.add("tekija", "Etsi vinkkejä tekijän mukaan", new ListAllByAuthor(io, bdao));
+        menu.add(MUOKKAA_COMMAND, "Muokkaa vinkkiä", new Edit(io, bdao));
+        menu.add("muistiinpano", "Lisää vinkkiin muistiinpano", new AddNote(io, bdao));
+        menu.add("tyyppi", "Etsi vinkkejä tyypin mukaan", new ListAllOfType(io, bdao));
+        menu.add("kommenttihaku", "Etsi vinkkejä esiintyvällä kommentilla", new ListAllContainingComment(io, bdao));
+        menu.add(POISTU_COMMAND, "POISTU", () -> exit = true);
     }
     
     public void consoleApp() {
-        WHILE:
-        while(io.hasNextLine()) {
+        while (!exit) {
             io.print("Valitse komento:");
-            io.print("1) Listaa vinkit",
-                    "2) Uusi vinkki",
-                    "3) Poista vinkki",
-                    "4) Listaa lukemattomat vinkit",
-                    "5) Listaa luetut vinkit",
-                    "6) Merkitse vinkki luetuksi tai katsotuksi",
-                    "7) Etsi vinkkejä tekijän mukaan",
-                    "8) Muokkaa vinkkiä",
-                    "9) Lisää vinkkiin muistiinpano",
-                    "10) Etsi vinkkejä tyypin mukaan",
-                    "11) Etsi vinkkejä joilla on vastaava kommentti",
-                    "0) POISTU");
-            io.print("--------------------");
-
-            switch (io.nextLine().toLowerCase()) {
-                case "1":
-                    List<Bookmark> bookmarks = bdao.getAll();
-                    for (Bookmark bm : bookmarks) {
-                        io.print(bm.toString());
-                    }
-                    break;
-                case "2": case UUSI_COMMAND:
-                    new NewBookmark(io, bdao).run();
-                    break;
-                case "3":
-                    new Remove(io, bdao).run();
-                    break;
-                case "4":
-                    List<Bookmark> unRead = bdao.getAllUnRead();
-                    for (Bookmark bm : unRead) {
-                        io.print(bm.toString());
-                    }
-                    break;
-                case "5":
-                    List<Bookmark> read = bdao.getAllRead();
-                    for (Bookmark bm : read) {
-                        io.print(bm.toString());
-                    }
-                    break;
-                case "6":
-                    new SetRead(io, bdao).run();
-                    break;
-                case "7":
-                    new ListAllByAuthor(io, bdao).run();
-                    break;
-                case "8": case MUOKKAA_COMMAND:
-                    new Edit(io, bdao).run();
-                    break;
-                case "9":
-                    new AddNote(io, bdao).run();
-                    break;
-                case "10":
-                    new ListAllOfType(io, bdao).run();
-                    break;
-                case "11":
-                    io.print("Syötä haettava kommentti: ");
-                    String comment = io.nextLine();
-                    List<Bookmark> matchingBookmarks = bdao.searchWithComment(comment);
-                    if (!matchingBookmarks.isEmpty()) {
-                        for (Bookmark bm : matchingBookmarks) {
-                            io.print(bm.toString());
-                        }
-                    } else {
-                        io.print("Yhdelläkään vinkillä ei ollut kommenttia: '" + comment + "'");
-                    }
-                    break;
-                case "0": case POISTU_COMMAND:
-                    break WHILE;
-                default:
-                    io.print("Tuntematon komento");
-            }
+            io.print(menu.toString());
+            io.print("--- --- --- --- ---");
+            menu.get(io.nextLine()).run();
             io.print("");
         }
     }
