@@ -103,6 +103,12 @@ public class BookmarkTest {
         assertTrue(book.toString().contains("kirja"));
         assertTrue(article.toString().contains("artikkeli"));
         assertTrue(book.toString().contains("lukematta"));
+        book.setRead(true);
+        assertTrue(book.toString().contains("luettu"));
+        book.setISBN("951-98548-9-4");
+        assertTrue(book.toString().contains("951-98548-9-4"));
+        book.setDescription("Very nice and fine");
+        assertTrue(book.toString().contains("Very nice and fine"));
     }
     
     @Test
@@ -112,6 +118,14 @@ public class BookmarkTest {
         assertEquals(book.getRead().equals(""), false);
         book.setRead(false);
         assertEquals(book.getRead(), "");
+    }
+    
+    @Test
+    public void testIsRead() {
+        assertFalse(book.isRead());
+        book.setRead(true);
+        assertTrue(book.isRead());
+        
     }
     
 }
