@@ -14,19 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Bookmarcus. If not, see <https://www.gnu.org/licenses/>.
  */
-package main;
+package bookmarcus;
 
-import bookmarcus.Bookmarcus;
-import database.BookmarkDAO;
-import io.IO;
-import io.ConsoleIO;
-
-public class Main {
-
-    public static void main(String[] args) {
-        IO io = new ConsoleIO();
-        new Bookmarcus(new BookmarkDAO(), io).consoleApp();
-        io.close();
-    }
-
+/**
+ *
+ * @author WebCoodi
+ */
+public interface Command {
+    
+    void run();
+    
 }
