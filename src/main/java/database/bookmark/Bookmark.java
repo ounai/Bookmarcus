@@ -155,7 +155,9 @@ public abstract class Bookmark {
     
     public void setURL(String url) {
         if (hasURL()) {
-            this.url = url;
+            if (url != null) {
+                this.url = url;
+            }
         } else {
             throw new UnsupportedOperationException();
         }
@@ -170,12 +172,22 @@ public abstract class Bookmark {
      */
     @Override
     public String toString() {
-        return  "---------------------------------------------------------\n"
-                + id + ": " + getType() + " | " + getName() + " | "
-                + ((isRead()) ? "luettu: " + getRead().substring(0,getRead().length()-3) + " |" : "(lukematta) | ")
-                + ((!getISBN().isEmpty()) ? "| isbn: " + getISBN() + " |": "")
-                + ((!getDescription().isEmpty()) ? "\n\n" +  getDescription() : "\n")
-                + "\n---------------------------------------------------------";
+        StringBuilder sb = new StringBuilder();
+        sb.append("---------------------------------------------------------\n");
+        sb.append(id).append(": ").append(getType()).append(" | ");
+        sb.append(getName()).append(" | ");
+        sb.append((isRead()) ? "luettu: " + getRead().substring(0,getRead().length()-3) : "(lukematta)").append("\n");
+        if (hasURL() && !url.isEmpty()) {
+            sb.append("  URL:  ").append(getURL()).append('\n');
+        }
+        if (hasISBN()) {
+            sb.append("  ISBN: ").append(getISBN()).append('\n');
+        }
+        if (!description.isEmpty()) {
+            sb.append("   ").append(description).append('\n');
+        }
+        sb.append("---------------------------------------------------------");
+        return sb.toString();
     }
 
 }
