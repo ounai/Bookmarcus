@@ -17,6 +17,7 @@
 package database.bookmark;
 
 /**
+ * The type of a published book with an ISBN.
  *
  * @author WebCoodi
  */

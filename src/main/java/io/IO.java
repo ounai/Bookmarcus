@@ -19,6 +19,7 @@ package io;
 import java.io.Closeable;
 
 /**
+ * An interface for user input and output.
  *
  * @author WebCoodi
  */

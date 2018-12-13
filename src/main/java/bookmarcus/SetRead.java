@@ -21,7 +21,8 @@ import database.bookmark.Bookmark;
 import io.IO;
 
 /**
- *
+ * A command for setting a bookmark as read.
+ * 
  * @author WebCoodi
  */
 public class SetRead implements Command {
@@ -34,10 +35,23 @@ public class SetRead implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user to input the ID of the bookmark, then marks the bookmark as read at the current time.
+     */
     @Override
     public void run() {
         io.print("Syötä luetuksi tai katsotuksi merkattavan vinkin numero: ");
-        int readId = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+
+        int readId;
+
+        try {
+            readId = Integer.parseInt(io.nextLine());
+        } catch(NumberFormatException e) {
+            io.print("! - Syötä oikea vinkin numero.");
+
+            return;
+        }
+
         boolean readSuccess = bdao.markAsRead(readId);
         if(readSuccess) {
             io.print("Vinkki on merkitty luetuksi/katsotuksi.");

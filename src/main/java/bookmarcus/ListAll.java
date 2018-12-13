@@ -22,7 +22,8 @@ import io.IO;
 import java.util.List;
 
 /**
- *
+ * A command for listing all bookmarks.
+ * 
  * @author WebCoodi
  */
 public class ListAll implements Command {
@@ -35,6 +36,9 @@ public class ListAll implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Runs through all bookmarks found in the database and lists them.
+     */
     @Override
     public void run() {
         List<Bookmark> bookmarks = bdao.getAll();

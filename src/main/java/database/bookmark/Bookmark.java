@@ -42,13 +42,20 @@ public abstract class Bookmark {
     
     // Constructors
     
+    /**
+     * A constructor for a placeholder bookmark, that cannot be saved into the database before being given its mandatory fields.
+     */
     protected Bookmark() {
         this(MISSING_ID_PLACEHOLDER, MISSING_NAME);
     }
     
+    /**
+     * A constuctor for a bookmark that gives it its id and name, making it possible to save it into a database.
+     */
     protected Bookmark(int id, String name) {
         this.id = id;
         this.name = name;
+
         this.description = "";
         this.read = "";
         
@@ -56,7 +63,6 @@ public abstract class Bookmark {
         this.isbn = new ISBN();
         this.url = "";
     }
-    
     
     // Setters and getters
     
@@ -78,6 +84,12 @@ public abstract class Bookmark {
         return description;
     }
     
+    /**
+     * Sets the state of having been read.
+     * 
+     * When being called with read: true, it also sets the timestamp to the current time.
+     * When being called with read: false, it clears any timestamp that had been previously saved.
+     */
     public void setRead(boolean read) {
         if(read) {
             SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -109,7 +121,6 @@ public abstract class Bookmark {
         return id;
     }
     
-    
     // Default functionality for optional fields
     
     public abstract boolean hasAuthor();
@@ -129,13 +140,12 @@ public abstract class Bookmark {
     public abstract boolean hasISBN();
     
     public boolean setISBN(String isbn) {
-        if (!hasISBN()) {
+        if (hasISBN()) {
+            return this.isbn.setISBN(isbn);
+        } else {
             throw new UnsupportedOperationException();
         }
-        return this.isbn.setISBN(isbn);
     }
-    
-
     
     public String getISBN() {
         return isbn.getIsbn();
@@ -155,6 +165,9 @@ public abstract class Bookmark {
         return url;
     }
     
+    /**
+     * Returns a formatted text representation of the bookmark, that can be used in graphical interfaces.
+     */
     @Override
     public String toString() {
         return  "---------------------------------------------------------\n"

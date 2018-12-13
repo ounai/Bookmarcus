@@ -17,31 +17,62 @@
 package database.bookmark;
 
 /**
+ * Contains factory methods for creating a bookmark with given parameters.
  *
  * @author WebCoodi
  */
 public class BookmarkFactory {
     
+    /**
+     * Generates a bookmark from an integer representation of a type.
+     * 
+     * For possible types and their id values see {@link database.bookmark.Type}
+     * 
+     * @param i the integer representation of the type of bookmark to create
+     * 
+     * @return the created bookmark
+     */
     public static Bookmark newBookmarkByType(int i) {
         Type type = Type.getFromInt(i, null);
+
         if (type != null) {
             return newBookmarkByType(type);
         }
+
         throw new IllegalArgumentException("Type " + i + " not supported.");
     }
     
+    /**
+     * Generates a bookmark from a string representation of a type.
+     * 
+     * For possible types and their names, see {@link database.bookmark.Type}
+     * 
+     * @param string the string representation of the type of bookmark to create
+     * 
+     * @return the created bookmark
+     */
     public static Bookmark newBookmarkByType(String string) {
         Type type = Type.getFromString(string, null);
+
         if (type != null) {
             return newBookmarkByType(type);
         }
+
         throw new IllegalArgumentException("Type '" + string + "' not supported.");
     }
     
+    /**
+     * Generates a bookmark with a given type.
+     * 
+     * @param type the type of the bookmark
+     * 
+     * @return the created bookmark
+     */
     public static Bookmark newBookmarkByType(Type type) {
         if (type == null) {
-            throw new IllegalArgumentException("Null is not allowed");
+            throw new IllegalArgumentException("null is not allowed");
         }
+
         switch (type) {
             case ARTICLE:  return new Article();
             case BLOGPOST: return new Blogpost();

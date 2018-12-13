@@ -6,8 +6,9 @@
 package database.bookmark;
 
 /**
+ * A representation of a validated ISBN value.
  *
- * @author daniel
+ * @author WebCoodi
  */
 public class ISBN {
 
@@ -21,16 +22,23 @@ public class ISBN {
         return this.isbn;
     }
 
+    /**
+     * Validates and sets the ISBN value.
+     * 
+     * @param isbn the ISBN value to validate and set
+     * 
+     * @return was the given ISBN value valid
+     */
     public boolean setISBN(String isbn) {
         if (validISBN(isbn)) {
             this.isbn = isbn;
             return true;
         }
+
         return false;
     }
 
     private static boolean validISBN(String isbn) {
-
         if (isbn.isEmpty()) {
             return true;
         }

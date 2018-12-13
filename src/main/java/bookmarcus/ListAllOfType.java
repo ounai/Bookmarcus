@@ -22,6 +22,7 @@ import io.IO;
 import java.util.List;
 
 /**
+ * A command for listing all bookmarks of a given type.
  *
  * @author WebCoodi
  */
@@ -35,6 +36,9 @@ public class ListAllOfType implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user for the type, then lists all bookmarks that are of that type.
+     */
     @Override
     public void run() {
         io.print("Syötä haettavan tyypin nimi: ");

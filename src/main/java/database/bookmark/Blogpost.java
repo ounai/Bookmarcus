@@ -17,6 +17,7 @@
 package database.bookmark;
 
 /**
+ * The type of a blog post.
  *
  * @author WebCoodi
  */

@@ -20,6 +20,7 @@ import java.util.List;
 
 
 /**
+ * A DAO interface.
  *
  * @author WebCoodi
  */

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Represents a menu of the app.
  *
  * @author WebCoodi
  * @param <E>
@@ -35,15 +36,31 @@ public class Menu<E> {
         elements.add(0, new Entry("", defaultElement));
     }
     
+    /**
+     * Add an element to the menu.
+     * 
+     * @param name the name of the element
+     * @param description the description of the element
+     * @param element the element
+     */
     public void add(String name, String description, E element) {
         int index = elements.size();
+
         if (keyMapper.putIfAbsent(name.toLowerCase(), index) != null) {
             throw new IllegalArgumentException("Name already taken");
         }
+
         keyMapper.put(String.valueOf(index), index);
         elements.add(new Entry(description, element));
     }
     
+    /**
+     * Get an element by its name.
+     * 
+     * @param key the name of the element
+     * 
+     * @return the found element, or 0 if no element is found
+     */
     public E get(String key) {
         return elements.get(keyMapper.getOrDefault(key.toLowerCase(), 0)).element;
     }

@@ -22,6 +22,7 @@ import database.bookmark.BookmarkFactory;
 import io.IO;
 
 /**
+ * A command for creating a new bookmark.
  *
  * @author WebCoodi
  */
@@ -35,24 +36,35 @@ public class NewBookmark implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Guides the user through the process of creating a new bookmarks.
+     * 
+     * First asks the user of the new bookmark's type, then its name, following other information about the bookmark.
+     */
     @Override
     public void run() {
         Bookmark bookmark;
+
         io.print("Syötä vinkin tyyppi. Vaihtoehdot: artikkeli, blogikirjoitus, kirja, video");
+
         try {
             bookmark = BookmarkFactory.newBookmarkByType(io.nextLine());
         } catch (IllegalArgumentException e) {
             io.print("! - Tuntematon tyyppi");
             return;
         }
+
         io.print("Syötä vinkille nimi:");
         bookmark.setName(io.nextLine());
+
         io.print("Syötä vinkin tekijän nimi:");
         bookmark.setAuthor(io.nextLine());
+
         if (bookmark.hasURL()) {
             io.print("Syötä vinkin osoite:");
             bookmark.setURL(io.nextLine());
         }
+
         if (bookmark.hasISBN()) {
             String isbn;
 
@@ -67,9 +79,8 @@ public class NewBookmark implements Command {
                     io.print("! - ISBN-tunnus ei kelpaa, syötä oikea ISBN-tunnus.");
                 }
             }
-
-            
         }
+
         io.print("Lisää vinkkiä koskevat muistiinpanot:");
         bookmark.setDescription(io.nextLine());
         bdao.add(bookmark);

@@ -22,6 +22,7 @@ import io.IO;
 import java.util.List;
 
 /**
+ * A command for searching bookmarks' comments for a string.
  *
  * @author WebCoodi
  */
@@ -35,6 +36,9 @@ public class ListAllContainingComment implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user for a string, then searches all bookmarks for comments containing that string and outputs found bookmarks.
+     */
     @Override
     public void run() {
         io.print("Syötä haettava kommentti: ");

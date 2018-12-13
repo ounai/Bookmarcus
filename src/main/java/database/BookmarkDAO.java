@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A DAO implementation for a sqlite database of bookmarks.
  *
  * @author WebCoodi
  */
@@ -35,14 +36,27 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
 
     private String dbPath;
 
+    /**
+     * A DAO with a database in the default path.
+     */
     public BookmarkDAO() {
         this(DEFAULT_DATABASE_PATH);
     }
 
+    /**
+     * A DAO with a database in the given path.
+     */
     public BookmarkDAO(String path) {
         this.dbPath = path;
     }
 
+    /**
+     * Finds a bookmark with the given id.
+     * 
+     * @param id the id of the bookmark to find
+     * 
+     * @return a bookmark with the id given
+     */
     @Override
     public Bookmark find(int id) {
         Bookmark bookmark = null;
@@ -62,6 +76,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmark;
     }
     
+    /**
+     * Find bookmarks by a given author.
+     * 
+     * @param author the author to find bookmarks with
+     * 
+     * @return a list of bookmarks with the given author
+     */
     @Override
     public List<Bookmark> findByAuthor(String author) {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -84,6 +105,15 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmarks;
     }
 
+    /**
+     * Find bookmarks with a given type.
+     * 
+     * See {@link database.bookmark.Type} for the possible types and their names.
+     * 
+     * @param type the name of the type to find bookmarks by
+     * 
+     * @return a list of bookmarks with the given type
+     */
     @Override
     public List<Bookmark> findByType(String type) {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -106,6 +136,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmarks;
     }
 
+    /**
+     * Search the comments of all bookmarks for a string.
+     * 
+     * @param comment the string to search for
+     * 
+     * @return a list of bookmarks whose comments match the given string
+     */
     @Override
     public List<Bookmark> searchWithComment(String comment) {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -127,6 +164,11 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmarks;
     }
 
+    /**
+     * Returns all bookmarks in the database.
+     * 
+     * @return a list containing every bookmark in the database
+     */
     @Override
     public List<Bookmark> getAll() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -147,6 +189,11 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmarks;
     }
 
+    /**
+     * Returns all unread bookmarks in the database.
+     * 
+     * @return a list containing all bookmarks with the status of having not been read
+     */
     @Override
     public List<Bookmark> getAllUnRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -166,6 +213,11 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmarks;
     }
 
+    /**
+     * Returns all read bookmarks in the database.
+     * 
+     * @return a list containing all bookmarks with the status of having been read
+     */
     @Override
     public List<Bookmark> getAllRead() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
@@ -203,6 +255,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return bookmark;
     }
 
+    /**
+     * Deletes a bookmark by its ID.
+     * 
+     * @param id the ID of the bookmark
+     * 
+     * @return true if the bookmark was found and deleted
+     */
     @Override
     public boolean delete(int id) {
         if (notFound(id)) {
@@ -221,6 +280,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return true;
     }
 
+    /**
+     * Marks a bookmark as read.
+     * 
+     * @param id the ID of the bookmark
+     * 
+     * @return true if the bookmark was found and marked as read
+     */
     @Override
     public boolean markAsRead(int id) {
         if (notFound(id)) {
@@ -257,6 +323,13 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return conn;
     }
 
+    /**
+     * Adds a bookmark to the database.
+     * 
+     * @param bookmark the bookmark to save into the database
+     * 
+     * @return true if the bookmark was saved into the database
+     */
     @Override
     public boolean add(Bookmark bookmark) {
         if (bookmark.getName() == null || bookmark.getName().equals("n/a")) {
@@ -281,6 +354,14 @@ public class BookmarkDAO implements DatabaseDAO<Bookmark> {
         return true;
     }
     
+    /**
+     * Updates a bookmark with the given ID with the data of the given bookmark.
+     * 
+     * @param id the ID of the bookmark to update
+     * @param bookmark the object whose data to save
+     * 
+     * @return true if the bookmark was saved
+     */
     @Override
     public boolean update(int id, Bookmark bookmark) {
         if (notFound(id)) {

@@ -21,6 +21,7 @@ import database.DatabaseDAO;
 import io.IO;
 
 /**
+ * Constructs the menus and their actions in the app.
  *
  * @author WebCoodi
  */
@@ -60,6 +61,9 @@ public class Bookmarcus {
         menu.add(POISTU_COMMAND, "POISTU", () -> exit = true);
     }
     
+    /**
+     * Starts running a console app on the IO provided.
+     */
     public void consoleApp() {
         while (!exit) {
             io.print("Valitse komento:");

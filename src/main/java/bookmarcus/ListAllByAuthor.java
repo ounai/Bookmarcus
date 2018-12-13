@@ -22,6 +22,7 @@ import io.IO;
 import java.util.List;
 
 /**
+ * A command for listing all bookmarks with a given author.
  *
  * @author WebCoodi
  */
@@ -35,6 +36,9 @@ public class ListAllByAuthor implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks for an author, then lists all bookmarks with them as the author.
+     */
     @Override
     public void run() {
         io.print("Syötä haettavan tekijän nimi: ");

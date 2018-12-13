@@ -17,6 +17,7 @@
 package database.bookmark;
 
 /**
+ * The type of an article, either physical or digital.
  *
  * @author WebCoodi
  */

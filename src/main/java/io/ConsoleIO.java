@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * An implementation of user input and output in a terminal.
  *
  * @author WebCoodi
  */
@@ -40,17 +41,28 @@ public class ConsoleIO implements IO {
         return true;
     }
 
+    /**
+     * Reads and returns a line of input from the scanner object.
+     * 
+     * @return a string containing the line of scanner input
+     */
     @Override
     public String nextLine() {
         System.out.print("> ");
         return scanner.nextLine();
     }
 
+    /**
+     * Closes the connection to the scanner.
+     */
     @Override
     public void close() {
         scanner.close();
     }
 
+    /**
+     * Prints the given lines to standard output.
+     */
     @Override
     public void print(String... lines) {
         Arrays.stream(lines).forEach(System.out::println);

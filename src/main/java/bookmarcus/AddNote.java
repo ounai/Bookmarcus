@@ -22,6 +22,7 @@ import database.bookmark.Bookmark;
 import io.IO;
 
 /**
+ * A command for adding a note to a bookmark.
  *
  * @author WebCoodi
  */
@@ -35,10 +36,23 @@ public class AddNote implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user for the ID of a bookmark, then starts the process of adding a note to it.
+     */
     @Override
     public void run() {
         io.print("Syötä vinkin numero: ");
-        int idToAddNote = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+
+        int idToAddNote;
+
+        try {
+            idToAddNote = Integer.parseInt(io.nextLine());
+        } catch(NumberFormatException e) {
+            io.print("! - Syötä oikea vinkin numero.");
+
+            return;
+        }
+
         Bookmark bookmarkToAddNote = bdao.find(idToAddNote);
 
         if (bookmarkToAddNote != null) {

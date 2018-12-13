@@ -21,6 +21,7 @@ import database.bookmark.Bookmark;
 import io.IO;
 
 /**
+ * A command for editing a bookmark.
  *
  * @author WebCoodi
  */
@@ -34,10 +35,23 @@ public class Edit implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user for the ID of a bookmark, then starts the process of editing a field of the chosen bookmark.
+     */
     @Override
     public void run() {
         io.print("Syötä muokattavan vinkin numero: ");
-        int idToEdit = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+
+        int idToEdit;
+
+        try {
+            idToEdit = Integer.parseInt(io.nextLine());
+        } catch(NumberFormatException e) {
+            io.print("! - Syötä oikea vinkin numero.");
+
+            return;
+        }
+
         Bookmark bookmarkToEdit = bdao.find(idToEdit);
 
         if (bookmarkToEdit != null) {
@@ -47,6 +61,13 @@ public class Edit implements Command {
         }
     }
     
+    /**
+     * Guides the user through the process of editing a field on a bookmark.
+     * 
+     * It asks the user to choose a field to edit, then checks if that choice is valid,
+     * and if it is, shows the user its old value and asks them to input a new value.
+     * If the new value is then valid, it saves the change in the database.
+     */
     private void edit(Bookmark bookmarkToEdit) {
         io.print(bookmarkToEdit.toString());
         
@@ -55,6 +76,7 @@ public class Edit implements Command {
         io.print("1) nimi");
         io.print("2) kuvaus");
         io.print("3) url");
+
         if (bookmarkToEdit.hasAuthor()) {
             io.print("4) tekijä");
 

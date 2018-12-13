@@ -21,6 +21,7 @@ import database.bookmark.Bookmark;
 import io.IO;
 
 /**
+ * A command for removing a bookmark.
  *
  * @author WebCoodi
  */
@@ -34,11 +35,25 @@ public class Remove implements Command {
         this.bdao = bdao;
     }
     
+    /**
+     * Asks the user to input the ID of the bookmark, then attempts to delete a bookmark with that ID.
+     */
     @Override
     public void run() {
         io.print("Syötä poistettavan vinkin numero: ");
-        int id = Integer.parseInt(io.nextLine()); // virheenhallinta puuttuu!
+
+        int id;
+
+        try {
+            id = Integer.parseInt(io.nextLine());
+        } catch(NumberFormatException e) {
+            io.print("! - Syötä oikea vinkin numero.");
+
+            return;
+        }
+
         boolean success = bdao.delete(id);
+
         if(success) {
             io.print("Vinkki on poistettu.");
         } else {

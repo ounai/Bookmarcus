@@ -17,11 +17,15 @@
 package bookmarcus;
 
 /**
+ * An interface for a command runnable from the main menu of the app.
  *
  * @author WebCoodi
  */
 public interface Command {
     
+    /**
+     * The action to be taken when this command is chosen.
+     */
     void run();
     
 }
