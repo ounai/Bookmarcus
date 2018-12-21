@@ -5,7 +5,7 @@
 Bookmarking App
   - [Product Backlog](https://docs.google.com/spreadsheets/d/1BRYb5EGVMEszLWBK_oi_MtSrRDbMbrU323mzProowRY/edit?usp=sharing)
 ## Raportti
-[Raportti valmistuu tänne](https://docs.google.com/document/d/1SABpd_58dWa9WhZud0buTu-h94mHa45apHI6uoxwogM/edit?usp=sharing)
+[Raportti valmistuu tänne](https://docs.google.com/document/d/1ZRFBGQo2cenOXOfo-UxmktxmGYtlHAKbdGHu4W5cJ0Q/edit?usp=sharing)
 ## Käyttöönotto-ohjeet
   - Lataa release-sivulta .zip tiedosto
   - Pura tiedosto
